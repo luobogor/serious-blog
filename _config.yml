@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle: ''
-description: ''
+title: JinZhan's Blog
+subtitle: 'all in one'
+description: 'description'
 keywords:
-author: John Doe
+author: YeJinZhan
 language: en
 timezone: ''
 
@@ -102,4 +102,3 @@ theme_config:
 deploy:
   type: git
   repo: git@github.com:jinzhanye/jinzhanye.github.io.git
-
