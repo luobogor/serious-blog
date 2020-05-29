@@ -41,16 +41,16 @@ $dark-gray: #8a8a8a !default;
 $global-font-color: #34495e !default;
 
 // Font size attribute applied to '<html>' and '<body>'.
-$global-font-size: 16px !default;
+$global-font-size: 18px !default;
 
 // Global width of '<body>'.
-$global-body-width: 800px !default;
+$global-body-width: 960px !default;
 
 // Padding of container main
 $global-container-padding: 0 20px !default;
 
 // Default line height for all type. `$global-lineheight` is 24px while `$global-font-size` is 16px.
-$global-lineheight: 1.5 !default;
+$global-lineheight: 1.65 !default;
 
 // Font family of the site.
 $global-font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif !default;
@@ -63,11 +63,11 @@ $global-background: $white !default;
 
 // Headings font size of the site.
 $global-headings: (
-  h1: 26px,
-  h2: 24px,
-  h3: 20px,
-  h4: 16px,
-  h5: 14px,
+  h1: 28px,
+  h2: 26px,
+  h3: 22px,
+  h4: 18px,
+  h5: 16px,
   h6: 14px
 ) !default;
 
@@ -76,24 +76,17 @@ $global-headings: (
 // Padding of the site header.
 $header-padding: 20px 20px !default;
 
-// Font family: Chancery
+// Font family: Balsamiq_Sans
 @font-face {
-  font-family: 'Chancery';
-  src: url('../fonts/chancery/apple-chancery-webfont.eot');
-  src: local('Apple Chancery'), url('../fonts/chancery/apple-chancery-webfont.eot?#iefix') format('embedded-opentype'),
-  url('../fonts/chancery/apple-chancery-webfont.woff2') format('woff2'),
-  url('../fonts/chancery/apple-chancery-webfont.woff') format('woff'),
-  url('../fonts/chancery/apple-chancery-webfont.ttf') format('truetype'),
-  url('../fonts/chancery/apple-chancery-webfont.svg#apple-chancery') format('svg');
-  font-weight: lighter;
-  font-style: normal;
+  font-family: 'Balsamiq_Sans';
+  src: url('../fonts/Balsamiq_Sans/BalsamiqSans-Regular.ttf');
 }
 
 // Font size of the logo.
 $logo-font-size: 48px !default;
 
 // Font family of the logo.
-$logo-font-family: 'Chancery', cursive, LiSu, sans-serif !default;
+$logo-font-family: sans-serif !default;
 
 // Margin of menu item.
 $menu-item-margin-left: 10px !default;
@@ -121,7 +114,7 @@ $post-border: 1px solid $light-gray !default;
 $post-title-font-size: 27px !default;
 
 // Font weight of post title.
-$post-title-font-weight: 400 !default;
+$post-title-font-weight: bold !default;
 
 // Margin top of the post meta (post time).
 $post-meta-margin-top: 5px !default;
@@ -302,7 +295,7 @@ $tag-cloud-tags-link-margin: 5px 10px !default;
 
 // ========== Categories ========== //
 // Font soze of the categories title.
-$categories-title-size: 18px !default;
+$categories-title-size: 24px !default;
 
 // Border bottom of the categories title.
 $categories-title-border-bottom: 2px solid $theme-color !default;

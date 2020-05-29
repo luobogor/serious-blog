@@ -19,9 +19,7 @@
       position: relative;
       margin: $categories-tags-link-margin;
       word-wrap: break-word;
-      transition-duration: 0.2s;
-      transition-property: transform;
-      transition-timing-function: ease-out;
+      font-size: 20px;
 
       .category-count {
         display: inline-block;
@@ -36,7 +34,6 @@
       &:focus,
       &:hover {
         color: $theme-color;
-        transform: scale(1.1);
       }
     }
   }

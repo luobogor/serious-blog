@@ -5,7 +5,7 @@
 .post-content {
   @for $i from 1 through 6 {
     h#{$i} {
-      font-weight: 400;
+      font-weight: bold;
       font-family: $global-serif-font-family;
     }
   }
@@ -64,6 +64,8 @@
   }
 
   img {
+    border: 3px solid rgba(0, 0, 0, 0.125);
+    border-radius: 5px;
     display: inline-block;
     max-width: 100%;
   }

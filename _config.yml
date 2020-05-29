@@ -8,7 +8,7 @@ subtitle: 'all in one'
 description: 'description'
 keywords:
 author: YeJinZhan
-language: en
+language: zh-cn
 timezone: ''
 
 # URL
@@ -93,9 +93,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: cactus
-theme_config:
-  colorscheme: white
+theme: even
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
