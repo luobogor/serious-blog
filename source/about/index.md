@@ -1,5 +1,5 @@
 ---
-title: about
+title: 关于
 date: 2020-05-24 23:17:52
 ---
 
