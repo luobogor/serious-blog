@@ -2,3 +2,20 @@
 // Custom style
 // ==============================
 // You can override the variables in _variables.scss to customize the style
+
+.vsys, .social-links {
+  display: none !important;
+}
+
+.copyright {
+  .power-by,
+  .theme-info,
+  .division {
+    display: none !important;
+  }
+
+  .copyright-year {
+    position: relative;
+    top: -10px;
+  }
+}
