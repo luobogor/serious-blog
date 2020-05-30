@@ -6,7 +6,7 @@ categories: 技术
 
 ![Cover](https://gitee.com/yejinzhan/images/raw/master/20200530160357.png)
 
-在上一篇文章 [《记一次绘图框架技术选型: jsPlumb VS mxGraph》](https://segmentfault.com/a/1190000018371243) 中，提到了我为什么要去学习 mxGraph。在入门时我遇到了以下几个问题
+在上一篇文章 [《记一次绘图框架技术选型: jsPlumb VS mxGraph》](https://yejinzhan.gitee.io/2019/03/21/%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%BB%98%E5%9B%BE%E6%A1%86%E6%9E%B6%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B_jsPlumb_VS_mxGraph/) 中，提到了我为什么要去学习 mxGraph。在入门时我遇到了以下几个问题
 
 - 官方文档偏向理论，没能较好地结合代码进行讲解
 - 虽然官方给出的例子很多，但没有说明阅读顺序，对刚入门的我不知道应该从哪开始阅读
