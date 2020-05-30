@@ -2,6 +2,7 @@
 // Custom style
 // ==============================
 // You can override the variables in _variables.scss to customize the style
+@import "../_common/utils";
 
 .social-links {
   display: none !important;
@@ -24,5 +25,18 @@
   .vsys,
   .vpower.txt-right {
     display: none !important;
+  }
+}
+
+
+.post {
+  .post-header .post-meta .post-visits {
+    display: none !important;
+  }
+}
+
+@include max-screen() {
+  .post {
+    padding-top: 1.5em !important;
   }
 }

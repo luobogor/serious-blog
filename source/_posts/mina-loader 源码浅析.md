@@ -95,7 +95,7 @@ webpack loader 是从右到左对于上面信息来说也就是下到上执行�
 ## 源码分析
 `mina-loader `执行流程如下，跟上面说的流程差不多
 
-![mina-loader流程.png](https://tva1.sinaimg.cn/large/00831rSTgy1gcuorm5hz3j30o60wewhp.jpg)
+![流程](https://gitee.com/yejinzhan/images/raw/master/20200530175651.png)
 
 ```
 // process on 导出图片 parts 那部分有些问题，实际内容如下
