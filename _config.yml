@@ -3,10 +3,10 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: JinZhan's Blog
+title: JinZhan de boke
 subtitle: 'all in one'
-description: 'description'
-keywords:
+description: '叶锦湛、YejinZhan、开发、技术、前端、'
+keywords: 叶锦湛、YejinZhan、开发、技术、前端、生活感悟、思考
 author: YeJinZhan
 language: zh-cn
 timezone: ''
@@ -99,4 +99,5 @@ theme: even
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: git@github.com:jinzhanye/jinzhanye.github.io.git
+  repo: git@gitee.com:yejinzhan/yejinzhan.git
+  branch: master
