@@ -3,7 +3,7 @@
 // ==============================
 // You can override the variables in _variables.scss to customize the style
 
-.vsys, .social-links {
+.social-links {
   display: none !important;
 }
 
@@ -17,5 +17,12 @@
   .copyright-year {
     position: relative;
     top: -10px;
+  }
+}
+
+#valine-container {
+  .vsys,
+  .vpower.txt-right {
+    display: none !important;
   }
 }

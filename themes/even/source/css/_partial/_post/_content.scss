@@ -10,6 +10,12 @@
     }
   }
 
+  h2 {
+    padding-bottom: .6rem;
+    margin-bottom: .4rem;
+    border-bottom: 1px double rgba(0, 0, 0,.1);
+  }
+
   .headerlink {
     &:hover {
       border-bottom: 0;
@@ -39,12 +45,14 @@
   }
 
   ul {
-    padding-left: 0;
-    list-style: inside;
+    list-style: disc;
 
     li {
       input[type="checkbox"] {
         margin-right: 5px;
+      }
+      > p {
+       display: contents;
       }
     }
   }

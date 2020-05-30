@@ -19,9 +19,9 @@
       <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
       <div id="valine-container"></div>
       <script>
-        var notify = {{ theme.valine.notify }} == true ? true : false;
-        var verify = {{ theme.valine.verify }} == true ? true : false;
-        var visitor = {{ theme.valine.visitor }} == true ? true : false;
+        var notify = {{ theme.valine.notify }}
+        var verify = {{ theme.valine.verify }}
+        var visitor = {{ theme.valine.visitor }}
         new Valine({
           el: '#valine-container',
           notify: notify,

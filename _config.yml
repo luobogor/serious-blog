@@ -97,7 +97,13 @@ theme: even
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
+
 deploy:
   type: git
-  repo: git@gitee.com:yejinzhan/yejinzhan.git
+  repo: git@github.com:jinzhanye/jinzhanye.github.io.git
   branch: master
+
+#deploy:
+#  type: git
+#  repo: git@gitee.com:yejinzhan/yejinzhan.git
+#  branch: master

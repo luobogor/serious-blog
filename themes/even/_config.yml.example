@@ -78,6 +78,17 @@ leancloud:
   app_id:
   app_key:
 
+valine:
+  enable: true
+  notify: false   #邮件提醒设置
+  verify: false   #验证码设置
+  placeholder:
+  avatar: monsterid  #头像设置
+  pageSize: 10
+  visitor: true
+  recordIP: true
+  lang: zh-CN
+
 # Baidu Analytics
 baidu_analytics:
 # Baidu Verification

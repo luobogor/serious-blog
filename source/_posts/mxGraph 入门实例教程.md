@@ -4,7 +4,7 @@ date: 2019-04-27 21:54:28
 categories: 技术
 ---
 
-![](https://ws2.sinaimg.cn/large/006tKfTcgy1g12ofoq7i6j30pz0dgwff.jpg)
+![Cover](https://gitee.com/yejinzhan/images/raw/master/20200530160357.png)
 
 在上一篇文章 [《记一次绘图框架技术选型: jsPlumb VS mxGraph》](https://segmentfault.com/a/1190000018371243) 中，提到了我为什么要去学习 mxGraph。在入门时我遇到了以下几个问题
 
@@ -54,11 +54,11 @@ mxBasePath = '../src';
 
 首先要声名一个全局变量 `mxBasePath` 指向一个路径，然后引入 mxGraph。
 
-![](https://ws4.sinaimg.cn/large/006tKfTcgy1g108oivvzmj305s03e3yg.jpg)
+![2](https://gitee.com/yejinzhan/images/raw/master/20200530152148.jpeg)
 
 `mxBasePath` 指向的路径作为 mxGraph 的静态资源路径。上图是 HelloWorld 项目的 `mxBasePah`，这些资源除了 js 目录 ，其他目录下的资源都是 mxGraph 运行过程中所需要的，所以要在引入 mxGraph 前先设置 `mxBasePath`。 
 
-![](https://ws1.sinaimg.cn/large/006tKfTcgy1g108qwr0ylj306i0dhaaj.jpg)
+![3](https://gitee.com/yejinzhan/images/raw/master/20200530152155.jpeg)
 
 再来看看 javascript 目录下有两个 `mxClient.js` 版本。 一个在 `javascript/src/js/mxClient.js` ，另一个在 `javascript/mxClient.js`，后者是前者打包后的版本，所以两者是可以替换使用的。如果你的项目是使用 script 标签引入 mxGraph，可以参考[我这个库](https://github.com/jinzhanye/mxgraph-demos/blob/master/src/01.helloworld.html)。
 
@@ -100,6 +100,8 @@ const {
 } = mxgraph;
 ```
 
+
+
 这里有两点需要注意的
 
 - `mx` 方法传入的配置项 `mxBasePath` 指向的路径一定要是一个可以通过 url 访问的静态资源目录。举个例子，pokemon-diagram 的 [static 目录](https://github.com/jinzhanye/pokemon-diagram/tree/master/static)是个静态资源目录，该目录下有 `mxgraph/css/common.css` 这么个资源，通过`http://localhost:7777` 可以访问 pokemon-diagram 应用，那么通过 `http://localhost:7777/static/mxgraph/css/common.css` 也应该是可以访问 `common.css` 才对
@@ -115,7 +117,7 @@ const {
 ### 事务
 官方的 [HelloWorld](https://github.com/jgraph/mxgraph/blob/master/javascript/examples/helloworld.html) 的例子向我们展示了如何将节点插入到画布。比较引人注意的是 `beginUpdate` 与 `endUpdate` 这两个方法，这两个方法在官方例子中出镜频率非常高，我们来了解一下他们是干嘛用的，嗯，真是只是了解一下就可以了，因为官方对两个方法的描述对入门者来说真的是比较晦涩难懂，而且我在实际开发中基本用不上这两个方法。可以等掌握这个框架基本使用后再回过头来研究。下面的描述来源这个[文档](https://jgraph.github.io/mxgraph/docs/tutorial.html)，我来简单概括一下有关这两个方法的相关信息。
 
-![](https://ws1.sinaimg.cn/large/006tKfTcgy1g0vjeq1nasj30pe0isn1k.jpg)
+![4_1](https://gitee.com/yejinzhan/images/raw/master/20200530153421.jpeg)
 
 - `beginUpdate、endUpdate` 用于创建一个事务，一次 `beginUpdate` 必须对应一次 `endUpdate`
 - 为了保证，假如 beginUpdate 执行失败，endUpdate 永远不会被调用，`beginUpdate 一定要放到 try 块之外`
@@ -156,7 +158,7 @@ function mxGeometry(x,y,width,height){}
 ```
 [mxGeometry](https://jgraph.github.io/mxgraph/docs/js-api/files/model/mxGeometry-js.html#mxGeometry.mxGeometry) 类表示 `Cell` 的几何信息，宽高比较好理解，只对节点有意义，对边没意义。下面通过 [02.geometry.html](https://github.com/jinzhanye/mxgraph-demos/blob/master/src/02.geometry.html) 这个例子说明如`x、y`的作用。
 
-![](https://ws2.sinaimg.cn/large/006tKfTcgy1g10aagk2tmj30g107n3yl.jpg)
+![4](https://gitee.com/yejinzhan/images/raw/master/20200530152211.jpeg)
 
 `mxGeometry ` 还有一个很重要的布尔属性 `relative`，
 
@@ -164,18 +166,19 @@ function mxGeometry(x,y,width,height){}
 
 	上一小节提到 `insertVertex` 内部会创建 `mxGeometry` 类。使用 `mxGraph.insertVertex` 会创建一个 `mxGeometry.relative` 为 false 的节点，如 A 节点
 	
-	![](https://jgraph.github.io/mxgraph/docs/images/mx_man_non_relative_pos.png)	
+	![](https://gitee.com/yejinzhan/images/raw/master/20200530152616.png)	
 
 - **`relative` 为 `true` 的节点，表示以父节点左上角为基点进行定位，`x、y` 使用的是`相对单位`**
 
 	使用 `mxGraph.insertVertex` 会创建一个 relative 为 false 的节点。如果你要将一个节点添加到另一个节点中需要在该方法调用的第9个参数传入 `true`，将 `relative` 设置为 `true`。这时子节点使用相对坐标系，以父节点左上角作为基点，x、y 取值范围都是 `[-1,1]`。如 C节点 相对 B节点定位。
 
-	![](https://jgraph.github.io/mxgraph/docs/images/mx_man_rel_vert_pos.png)
+![6](https://gitee.com/yejinzhan/images/raw/master/20200530152709.png)
 
 - **`relative` 为 `true` 的边，`x、y` 用于定位 label**
 
 	使用 `mxGraph.insertEdge` 会创建一条 relative 为 true 的边。x、y 用于定位线条上的 label，x 取值范围是 `[-1,1]`，`-1 为起点，0 为中点，1 为终点`。y 表示 label 在边的正交线上移到的距离。第三个例子能帮忙大家理解这种情况。
-    ![](https://ws1.sinaimg.cn/large/006tKfTcgy1g0z65fc7a7j308v063dft.jpg)
+  ![7](https://gitee.com/yejinzhan/images/raw/master/20200530152733.jpeg)
+	
 	```js
 	const e1 = graph.insertEdge(parent, null, '30%', v1, v2);
 	e1.geometry.x = 1;
@@ -183,7 +186,7 @@ function mxGeometry(x,y,width,height){}
 	```
 
 ### 设置样式
-![](https://jgraph.github.io/mxgraph/docs/images/mx_man_styles.png)
+![8](https://gitee.com/yejinzhan/images/raw/master/20200530152743.png)
 
 由 [03.stylesheet.html](https://github.com/jinzhanye/mxgraph-demos/blob/master/src/03.stylesheet.html) 这个例子我们得知 mxGraph 提供两种设置样式的方式。
 
@@ -216,8 +219,10 @@ graph.connectionHandler.createEdgeState = function () {
 mxGraph 所有样式在[这里](https://jgraph.github.io/mxgraph/docs/js-api/files/util/mxConstants-js.html#mxConstants.STYLE_STROKECOLOR)可以查看，打开网站后可以看到以 `STYLE_` 开头的是样式常量。但是这些样式常量并不能展示样式的效果。下面教大家一个查看样式效果的小技巧，使用 [draw.io](https://www.draw.io/) 或 [GraphEditor](https://jgraph.github.io/mxgraph/javascript/examples/grapheditor/www/index.html) (这两个应用都是使用 mxGraph 进行开发的) 的 `Edit Style` 功能可以查看当前 Cell 样式。
 
 比如现在我想将边的样式设置成：折线、虚线、绿色、拐弯为圆角、粗3pt。在 Style 面板手动修改样式后，再点击 `Edit Style` 就可以看到对应的样式代码。
-![](https://ws1.sinaimg.cn/large/006tKfTcgy1g122puprr5j30en0cp0tp.jpg)
-![](https://ws4.sinaimg.cn/large/006tKfTcgy1g122s3z4ioj30c708u0t7.jpg)
+
+![9](https://gitee.com/yejinzhan/images/raw/master/20200530152828.jpeg)
+
+![10](https://gitee.com/yejinzhan/images/raw/master/20200530152757.jpeg)
 
 为了方便观察我手动格式化了样式，注意最后一行以 `entry` 或 `exit` 开头的样式代表的是边出口/入口的靶点坐标，下一小节会进行讲解。
 
@@ -227,23 +232,25 @@ mxGraph 所有样式在[这里](https://jgraph.github.io/mxgraph/docs/js-api/fil
 
 将鼠标悬浮中 A 节点中心，待节点高亮时连接到 B 节点的一个靶点上
 
-![](https://ws3.sinaimg.cn/large/006tKfTcgy1g11f55anqyj308g06vmx0.jpg)
-![](https://ws1.sinaimg.cn/large/006tKfTcgy1g11f66hy3ij30qg07gt8w.jpg)
+![11](https://gitee.com/yejinzhan/images/raw/master/20200530152901.jpeg)
+
+![12](https://gitee.com/yejinzhan/images/raw/master/20200530152907.jpeg)
 
 然后将 A 节点拖拽到 B 节点右边
 
-![](https://ws4.sinaimg.cn/large/006tKfTcgy1g11f728kyij30ch04gwec.jpg)
+![13](https://gitee.com/yejinzhan/images/raw/master/20200530152918.jpeg)
 
 可以看到如果从图形中心拖出线条，这时边的出口值 `exit` 为空，只有入口值 `entry`。如果拖动节点 mxGraph 会智能地调整线条出口方向。如节点 A 的连接靶点原来是在右边，节点拖动到节点 B 右边后靶点也跟着发生了变化，跑到了左边，而节点 B 的连接靶点一直没变。
 
 这次将鼠标悬浮到 A 节点的一个靶点，待靶点高亮时连接到 B 节点的一个靶点上
 
-![](https://ws3.sinaimg.cn/large/006tKfTcgy1g11f7lugscj308p0750sl.jpg)
-![](https://ws3.sinaimg.cn/large/006tKfTcgy1g11f825hl6j30ql07v0t0.jpg)
+![14](https://gitee.com/yejinzhan/images/raw/master/20200530152929.jpeg)
+
+![15](https://gitee.com/yejinzhan/images/raw/master/20200530152943.jpeg)
 
 然后将 A 节点拖拽到 B 节点右边
 
-![](https://ws1.sinaimg.cn/large/006tKfTcgy1g11f8gve0qj30b904ajr8.jpg)
+![16](https://gitee.com/yejinzhan/images/raw/master/20200530153000.jpeg)
 
 可以看到这次所有值都有了，连接后拖动节点 A，连接靶点的位置也固定不变，mxGraph 不像第一个例子一样调整连接靶点位置。之所以产生这样的差异是因为第一个例子的边是从节点中心拖出的，并没有出口靶点的信息，而第二个例子则是明确地从一个靶点中拖出一条边。
 
@@ -314,7 +321,7 @@ graph.selectCellForEvent = function (cell) {
 ### 写一个节点组合
 下面以项目的这个节点为例，讲解如何组合节点
 
-![](https://ws1.sinaimg.cn/large/006tKfTcgy1g125jqw96cj3035042aa5.jpg)
+![17](https://gitee.com/yejinzhan/images/raw/master/20200530153022.jpeg)
 
 
 ```js
@@ -342,11 +349,11 @@ const insertVertex = (dom) => {
 
 单单 `nodeRootVertex` 就是长这个样子。通过设置自定义的 `node` 样式(见 [Graph](https://github.com/jinzhanye/pokemon-diagram/blob/master/src/graph/Graph.js) 类 _putVertexStyle 方法)与 `image` 属性设置图片路径配合完成。
 
-![](https://ws1.sinaimg.cn/large/006tKfTcgy1g0xqbyl8ovj304t04tglm.jpg)
+![18](https://gitee.com/yejinzhan/images/raw/master/20200530153031.jpeg)
 
 因为默认情况下一个节点只能有一个文本区和一个图片区，要增加额外的文本和图片就需要组合节点。在 `nodeRootVertex` 上加上 `titleVertex` 文本节点和 `normalTypeVertex` 图片节点，最终达到这个效果。
 
-![](https://ws1.sinaimg.cn/large/006tKfTcgy1g125qbf1u0j3098085mxl.jpg)
+![19](https://gitee.com/yejinzhan/images/raw/master/20200530153125.jpeg)
 
 
 有时需要为不同子节点设置不同的鼠标悬浮图标，如本项目鼠标悬浮到 `normalTypeVertex ` 时鼠标变为手形，参考 AppCanvas.vue 的 setCursor 方法，重写 `mxGraph.prototype.getCursorForCell` 可以实现这个功能。
@@ -389,18 +396,18 @@ const titleVertex = graph.insertVertex(nodeRootVertex, null, title,
 
 对于非输入的文本内容，默认情况下即便文本超出容器宽度也是不会换行的。我们项目中宽度为 80 的 titleVertex 正是这样一个例子。
 
-![](https://ws2.sinaimg.cn/large/006tKfTcgy1g0xmmixmizj30lg095abj.jpg)
+![20](https://gitee.com/yejinzhan/images/raw/master/20200530153148.jpeg)
 
 要设置换行需要做两件事，第一是通过这行代码 [mxGraph.setHtmlLabels(true)](https://jgraph.github.io/mxgraph/docs/js-api/files/view/mxGraph-js.html#mxGraph.setHtmlLabels)，使用 html 渲染文本(mxGraph 默认使用 svg的text 标签渲染文本)。第二是像上面的 titleVertex 的样式设置一样，添加一句 [whiteSpace=wrap](https://jgraph.github.io/mxgraph/docs/js-api/files/util/mxConstants-js.html#mxConstants.STYLE_WHITE_SPACE)。
 
-![](https://ws2.sinaimg.cn/large/006tKfTcgy1g0xmcy67uaj30mj0fedj4.jpg)
+![21](https://gitee.com/yejinzhan/images/raw/master/20200530153159.jpeg)
 
 ### Model
 现在介绍一下 Model 这个概念，Model 是当前图形的数据结构化表示。[mxGraphModel](https://jgraph.github.io/mxgraph/docs/js-api/files/model/mxGraphModel-js.html) 封装了 Model 的相关操作。
 
 你可以启动项目，画一个这样的图，然后点击输出XML。为了保的 xml 与下面的一致，需要先拖出智爷，再拖出超级皮卡丘，最后连接边。
 
-![](https://ws4.sinaimg.cn/large/006tKfTcgy1g12otg7fgmj30i507p0th.jpg)
+![22](https://gitee.com/yejinzhan/images/raw/master/20200530153219.jpeg)
 
 控制台应该输出这样一份 xml
 
@@ -437,13 +444,13 @@ const titleVertex = graph.insertVertex(nodeRootVertex, null, title,
 
 data 值是原对象经 JSON.stringify 得到的，经转义后就变成了上面的样子。控制台还打印了一个 mxGraphModel 对象，对比上面的 xml 与 下图的节点对象，可以发现它们只是同一个 Model 的不同表现形式，xml 正是将 [mxGraph.model](https://jgraph.github.io/mxgraph/docs/js-api/files/view/mxGraph-js.html#mxGraph.model) 格式化而成的。
 
-![](https://ws3.sinaimg.cn/large/006tKfTcgy1g12oyl198cj30og0f541b.jpg)
+![23](https://gitee.com/yejinzhan/images/raw/master/20200530153229.jpeg)
 
 ### 事件
 
 本项目监听事件写在 [AppCanvas.vue](https://github.com/jinzhanye/pokemon-diagram/blob/master/src/pages/AppCanvas.vue) 的 _listenEvent 方法，可以在这个方法了解一些常用的事件。下图来自 [mxGraph ](https://jgraph.github.io/mxgraph/docs/js-api/files/view/mxGraph-js.html#mxGraph) 类的方法调用依赖图，我们可以从这里看出整个框架的事件流动。
 
-![](https://jgraph.github.io/mxgraph/docs/js-api/images/images/callgraph.png)
+![24](https://gitee.com/yejinzhan/images/raw/master/20200530153243.png)
 
 #### 监听事件
 
@@ -454,7 +461,7 @@ data 值是原对象经 JSON.stringify 得到的，经转义后就变成了上�
 - [mxGraph.getSelectionModel()](https://jgraph.github.io/mxgraph/docs/js-api/files/view/mxGraph-js.html#mxGraph.getSelectionModel) 返回一个 [mxGraphSelectionModel](https://jgraph.github.io/mxgraph/docs/js-api/files/view/mxGraphSelectionModel-js.html#mxGraphSelectionModel.mxGraphSelectionModel) 对象，这个对象也是继承自 `mxEventSource` 有 `mxEvent.UNDO、mxEvent.CHANGE` 两个事件，通过监听 `mxEvent.CHANGE` 事件可以获取当前被选中的 `Cell`。
 
 #### ADD\_CELLS 与 CELLS\_ADD 的区别
-![](https://ws1.sinaimg.cn/large/006tKfTcgy1g0xo1ow1p0j30id010gls.jpg)
+![26](https://gitee.com/yejinzhan/images/raw/master/20200530153315.jpeg)
 
 `mxGraph` 类有很多 `XXX_CELLS`、`CELLS_XXXED` 这种形式的事件，这部分我还没弄懂，下面仅以添加事件为例探讨这两类事件的区别。
 

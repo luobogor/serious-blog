@@ -4,7 +4,7 @@ date: 2020-03-08 21:54:28
 categories: 技术
 ---
 
-![封面](https://tva1.sinaimg.cn/large/00831rSTgy1gcmm4033dzj30yd0j01bv.jpg)
+![Cover](https://gitee.com/yejinzhan/images/raw/master/20200530155744.png)
 
 目前公司团队小程序框架使用的是 [tinaJs](https://tina.js.org/#/)，这篇文章将讲解这个框架的源码。阅读文章时可以对照着这个[小工程](https://github.com/jinzhanye/my-tina/tree/master/test/sayhi/libraries)阅读源码，这个小工程主要是对 tina 加了更多的注释及示例。
 
