@@ -34,6 +34,14 @@
   .post-header .post-meta .post-visits {
     display: none !important;
   }
+
+  .post-copyright {
+    .copyright-item {
+      &:nth-child(1), &:nth-child(2) {
+        display: none;
+      }
+    }
+  }
 }
 
 @include max-screen() {
