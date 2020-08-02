@@ -18,6 +18,9 @@
 - 季刊
 - good-program-vedio-recommend
 - 开源商业化之思考 《大教学与集市》
+- cookie、chrome
+https://www.youtube.com/watch?v=aUF2QCEudPo&feature=youtu.be
+https://www.youtube.com/watch?v=gEPii2y3ISQ
 
 ## 待定
 - 浏览器厂家参加w3c规范的战略意义。加入自己想要的规范影响局势
