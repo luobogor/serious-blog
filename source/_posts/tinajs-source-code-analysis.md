@@ -1,5 +1,5 @@
 ---
-title: tinaJs 源码分析
+title: Tina.js 源码分析
 date: 2020-03-08 21:54:28
 categories: 技术
 ---
