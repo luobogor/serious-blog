@@ -6,12 +6,12 @@ categories: 技术
 
 ![Cover](https://gitee.com/yejinzhan/images/raw/master/20200530155744.png)
 
-目前公司团队小程序框架使用的是 [tinaJs](https://tina.js.org/#/)，这篇文章将讲解这个框架的源码。阅读文章时可以对照着这个[小工程](https://github.com/jinzhanye/my-tina/tree/master/test/sayhi/libraries)阅读源码，这个小工程主要是对 tina 加了更多的注释及示例。
+目前公司团队小程序框架使用的是 [Tina.js](https://tina.js.org/#/)，这篇文章将讲解这个框架的源码。阅读文章时可以对照着这个[小工程](https://github.com/jinzhanye/my-tina/tree/master/test/sayhi/libraries)阅读源码，这个小工程主要是对 tina 加了更多的注释及示例。
 
 ## 是什么
 
-tinaJs 是一款轻巧的渐进式微信小程序框架，不仅能充分利用原生小程序的能力，还易于调试。
-这个框架主要是对 Component、Page 两个全局方法进行了封装，本文主要介绍 [tinaJS 1.0.0]() 的 `Paeg.define` 内部做了些什么。`Component.define` 与 `Paeg.define`相似，理解 `Paeg.define` 之后自然也就理解 `Component.define`。为什么是讲解 1.0.0 ？因为第一个版本的代码相对于最新版本主干内容更更清晰更容易上手。
+Tina.js 是一款轻巧的渐进式微信小程序框架，不仅能充分利用原生小程序的能力，还易于调试。
+这个框架主要是对 Component、Page 两个全局方法进行了封装，本文主要介绍 [Tina.js 1.0.0]() 的 `Paeg.define` 内部做了些什么。`Component.define` 与 `Paeg.define`相似，理解 `Paeg.define` 之后自然也就理解 `Component.define`。为什么是讲解 1.0.0 ？因为第一个版本的代码相对于最新版本主干内容更更清晰更容易上手。
 
 ![类图](https://gitee.com/yejinzhan/images/raw/master/20200530175804.png)
 
@@ -74,7 +74,7 @@ tina 的 mixin 是靠 js 对对象做合并实现的，并没有使用原生的 
 tinaPageOptions = this.mix(PAGE_INITIAL_OPTIONS, [...BUILTIN_MIXINS, ...this.mixins, ...(tinaPageOptions.mixins || []), tinaPageOptions])
 ```
 
-tinaJs 1.0.0 只支持一种合并策略，跟 Vue 的默认合并策略一样
+Tina.js 1.0.0 只支持一种合并策略，跟 Vue 的默认合并策略一样
 
 - 对于 methods 就是后面的覆盖前面的
 - 对于生命周期勾子和特殊勾子（onPullDownRefresh 等），就是变成一个数组，还是后面的先执行
