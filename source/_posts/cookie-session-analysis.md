@@ -5,17 +5,17 @@ categories: 技术
 ---
 
 ## 关于 JWT
-查看 jwt.md
+正如 [JSON Web Token 入门教程](https://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html)里面所提到的那样，Session 有两种存储方式，一种解决方案是 Cession 保存在服务端；另一种方案是保存在客户端，每次请求都发送回服务器，JWT 就是这种方案的一个代表，各有利弊。JWT 方案本身并不复杂，需要注意的是要搞清楚签名与加密的区分。签名是为了防篡改，不是防信息泄漏，因为 JWT 前两部分是 Base64URL 转码后的数据，所以 Header、Payload 是可以使用浏览器的 [btoa](https://developer.mozilla.org/zh-CN/docs/Web/API/WindowBase64/Base64_encoding_and_decoding) 方法转换查看原文的。
 
-点题 cookie-session 是利用 jwt 实现，而 express-session 是在服务端存储 session
+对于 [Express](https://github.com/expressjs/express) 来说，代表第一种方案的第三方库有 [express-session](https://github.com/expressjs/session)，第二种方案的第三方库有 [cookie-session](https://github.com/expressjs/cookie-session)，本文主要介绍 cookie-session 的实现原理。
 
 ## cookie-session 实现原理
 ### 整体流程
-开篇先整体讲下接收到请求和请求结束时发生了什么事情，有助于大家理解接下来要讲的代码细节。可以结合这个 Demo 一起理解这篇文章。
+开篇先整体讲下接收到请求和请求结束时发生了什么事情，有助于大家理解接下来要讲的代码细节。可以结合这个 [Demo](https://github.com/jinzhanye/cookie-session-demo) 一起理解本文。
 
-cookie-session 调用 Cookie.get 从请求头中读取 Cookie，以及读取该 Cookie 的签名，并校验签名是否合法。如果是合法则将该 Cookie 字符串返回给 cookie-session，cookie-session 再将该串反序列化成一个 Session 对象。拿到 Session 对象后开发者可以对 session 进行一些操作。
+请求进入服务时，cookie-session 调用 Cookie.get 从请求头中读取 Cookie，以及读取该 Cookie 的签名，并校验签名是否合法。如果是合法则将该 Cookie 字符串返回给 cookie-session，cookie-session 再将该串反序列化成一个 Session 对象。拿到 Session 对象后开发者可以对 session 进行一些操作。
 
-请求结束时 cookie-session 将当前的 session 实例进行序列化，再调用 Cookie.set 设置两个 Cookie，一个是序列化后的 session 实例，一个是该 cookie 的签名，也就是 Demo 响应里以 .sig 结尾的 Cookie。
+请求结束时，cookie-session 将当前的 session 实例进行序列化，再调用 Cookie.set 设置两个 Cookie，一个是序列化后的 session 实例，一个是该 cookie 的签名，也就是 Demo 响应里以 .sig 结尾的 Cookie。
 
 ```
 HTTP/1.1 200 OK
@@ -49,7 +49,7 @@ function cookieSession (options) {
 }
 ```
 
-先来看 `cookieSession` 这个方法做了什么事情，首先是保证在开启签名选项 `signed` 后保证开发者传入的 options 的 `keys` 或 `secret` 其中一个必须，因为后续签名要使用。然后就是返回一个中间件。
+先来看 `cookieSession` 这个方法，也就是这个库的入口做了什么事情。首先是保证在开启签名选项 `signed` 的情况下开发者传入的 options 的 `keys` 或 `secret` 其中一个必须存在，因为后续签名要使用，然后就是返回一个中间件 `_cookieSession`。
 
 ```js
 function _cookieSession(req, res, next) {
@@ -66,7 +66,7 @@ function _cookieSession(req, res, next) {
     configurable: true,
     enumerable: true,
     get: getSession, // 读取 req.session 或 req.session.xxx 时触发
-    set: setSession// 赋值 req.session 时触发
+    set: setSession // 赋值 req.session 时触发
   })
 
   function getSession() {
@@ -178,43 +178,53 @@ function SessionContext () {
 从上面代码可以看到，最终构造出来的 `Session` 实例是这样子的。
 
 ```js
-/**
-Cookie.get -> getReqCookie(name, value)、getReqCookie(`${name}`.sig, sign(value))、validateSign -> 逆 Base64 解码 -> JSON.parse -> sess
-**/
-
-const sess = {// Session
-  // .... 开发者可以添加多个 key
-  _ctx: { // SessionContext
-    _new: true, // 是否为新的 SessionContext
-    _value: undefined, // 经过 base64 编码后的值
-  }
-}
-
 const sess = {// Session
   tokenA: 'foo',
   tokenB: 'bar',
   // .... 开发者可以添加多个 key
   _ctx: { // SessionContext
-    _new: false, // 
-    _value: 'eyJ0b2tlbkEiOiJmb28iLCJ0b2tlbkIiOiJiYXIifQ==', // 经过 Base64 编码后的值，也就是 base64Encode(JSON.stringify({ tokenA: 'foo', tokenB: 'bar' }))
+    _new: Boolean, // 是否为新的 SessionContext
+    _value: String, // 经过 Base64 编码序列化后的 Session 实例，以 Demo 为例也就是 base64Encode(JSON.stringify({ tokenA: 'foo', tokenB: 'bar' }))
   }
 }
 ```
 
-`_ctx` 是个 `unenumerable` 属性，所以 _ctx 是不会被 `JSON.stringify 转换`。`_new` 表示是否为新的 `SessionContext` 实例。
+`_ctx` 是个 `unenumerable` 属性，所以 `_ctx` 是不会被 `JSON.stringify` 转换。`_new` 表示
+Session 实例是否通过 `Session.create` 创建的实例。`Session.create` 被调用的时机有两个，一个是上文提到的用户首次访问的情况；另一个是当开发者以整个对象的形式赋值 session（也就是 `req.session = { /*....*/ }` ）。
 
-对比 `Session.create` 与 `Session.deserialize`，可以发现
-
-上文提到过如果是请求头中存在 cookie，会通过 `Session.deserialize` 创建 `Session` 实例，这时 `_new` 为 `false`。而 _value 则是 `Cookie.get` 获取的值。 _value 逆 Base64 解码后可以得到一个 `Session` 实例。
-
-### 设置 Cookie
-`onHeaders` 的回调会在请求将要结束时被调用，`Cookie.set` 将经过 JSON.stringify 及 Base64 编码后的字符串设置到响应头中，同时加上签名。
+上文提到过如果是请求头中存在 cookie，会通过 `Session.deserialize` 创建 `Session` 实例，这时 `_new` 为 `false`。而 _value 则是 `Cookie.get` 获取的值。 _value 逆 Base64 解码后可以得到一个 `Session` 实例。以下为 `Session.deserialize` 创建的对象：
 
 ```js
-/**
-JSON.stringify(sess) -> Base64 encode -> Cookie.set -> resSetCookie(name, value)、resSetCookie(`${name}`.sig, sign(value))
-**/
+const sess = {// Session
+  tokenA: 'foo',
+  tokenB: 'bar',
+  _ctx: { // SessionContext
+    _new: false, // 
+    _value: 'eyJ0b2tlbkEiOiJmb28iLCJ0b2tlbkIiOiJiYXIifQ==', // 经过 Base64 编码后的值，也就是 base64Encode(JSON.stringify({ tokenA: 'foo', tokenB: 'bar' }))
+  }
+}
 
+// source code
+function decode (string) {
+  var body = Buffer.from(string, 'base64').toString('utf8')
+  return JSON.parse(body)
+}
+
+Session.deserialize = function deserialize (str) {
+  var ctx = new SessionContext()
+  var obj = decode(str)
+
+  ctx._new = false
+  ctx._val = str
+
+  return new Session(ctx, obj)
+}
+```
+ 
+### 设置 Cookie
+`onHeaders` 的回调会在请求将要结束时被调用，`Cookie.set` 将经过 `JSON.stringify` 及 Base64 编码后的字符串设置到响应头中，同时加上签名。
+
+```js
 Session.serialize = function serialize (sess) {
   return encode(sess)
 }
@@ -340,7 +350,7 @@ Cookie.prototype.toHeader = function () {
   }
 ```
 
-现在来签名是怎么做的，也就是 `sign` 方法的内部实现。this.keys 是在 `new Cookie()` 时绑定的 `Keygrip` 实例，我们看看 `Keygrip` 的源码就好。
+现在来签名是怎么做的，也就是 `sign` 方法的内部实现。this.keys 是在 `new Cookie()` 时绑定的 `Keygrip` 实例，我们看看 `Keygrip` 的源码就好。其实就是使用 SHA1 算法进行加密，然后以 Base64URL 的形式输出。
 
 ```js
 var crypto = require("crypto")
@@ -366,13 +376,11 @@ function Keygrip(keys, algorithm, encoding) {
 }
 ```
 
-其实就是使用 SHA1 算法进行加密，然后以 Base64URL 的形式输出。
-
 ### Cookie.get
 Cookie.set 主要做了三件事：
-1. 从请求头中读取开发设置的 Cookie
+1. 从请求头中读取开发者设置的 Cookie
 1. 从请求头中读取签名后的 Cookie
-1. 校验签名是否合法
+1. 校验签名是否合法：对第一步获取 Cookie 进行签名然后与第二步中获取到的 Cookie 对比是否相等，相等即签名合法
 
 ```js
 // **** get cookie
@@ -414,10 +422,8 @@ Cookies.prototype.get = function (name, opts) {
     return value
   }
 };
-```
 
-
-```js
+// Keygrip 源码，校验签名是否合法
 this.index = function (data, digest) {
   for (var i = 0, l = keys.length; i < l; i++) {
     if (compare(digest, sign(data, keys[i]))) {
@@ -428,3 +434,7 @@ this.index = function (data, digest) {
   return -1
 }
 ```
+
+## 参考
+- [JSON Web Token 入门教程](https://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html)
+- [五个步骤轻松弄懂 JSON Web Token（JWT）](https://www.tomczhen.com/2017/05/25/5-easy-steps-to-understanding-json-web-tokens-jwt/)
