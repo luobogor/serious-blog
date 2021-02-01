@@ -459,6 +459,9 @@ this.index = function (data, digest) {
 }
 ```
 
+## todo
+自底向上调整
+
 ## 参考
 - [jwt.io](https://jwt.io/)
 - [JSON Web Token 入门教程](https://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html)
