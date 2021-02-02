@@ -1,3 +1,6 @@
+## 前言
+前一段时间在修复因为 Chrome 升级新版本后 [SameSite](https://web.dev/samesite-cookies-explained/) 属性设置不当导致 Cookie 失效的问题，主要是编写中间件对 Cookie 进行处理。而有其中一个老项目是使用 [cookie-session](https://github.com/expressjs/cookie-session) 设置 Cookie 的，为了在这个项目处理 SameSite 这个问题，于是就翻看了这个库的源码。
+
 ## 关于 JWT
 正如 [JSON Web Token 入门教程](https://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html)里面所提到的那样，Session 有两种存储方式，一种解决方案是 Cession 保存在服务端；另一种方案是保存在客户端，每次请求都发送回服务器，JWT 就是这种方案的一个代表，各有利弊。JWT 方案本身并不复杂，需要注意的是要搞清楚签名与加密的区分。签名是为了防篡改，不是防信息泄漏，因为 JWT 前两部分是 Base64URL 转码后的数据，所以 Header、Payload 是可以使用浏览器的 [btoa](https://developer.mozilla.org/zh-CN/docs/Web/API/WindowBase64/Base64_encoding_and_decoding) 方法转换查看原文的。
 
