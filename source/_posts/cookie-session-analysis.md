@@ -4,9 +4,9 @@
 ## 关于 JWT
 正如 [JSON Web Token 入门教程](https://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html)里面所提到的那样，Session 有两种存储方式，一种解决方案是 Cession 保存在服务端；另一种方案是保存在客户端，每次请求都发送回服务器，JWT 就是这种方案的一个代表，各有利弊。JWT 方案本身并不复杂，需要注意的是要搞清楚签名与加密的区分。签名是为了防篡改，不是防信息泄漏，因为 JWT 前两部分是 Base64URL 转码后的数据，所以 Header、Payload 是可以使用浏览器的 [btoa](https://developer.mozilla.org/zh-CN/docs/Web/API/WindowBase64/Base64_encoding_and_decoding) 方法转换查看原文的。
 
-对于 [Express](https://github.com/expressjs/express) 来说，代表第一种方案的第三方库有 [express-session](https://github.com/expressjs/session)，第二种方案的第三方库有 [cookie-session](https://github.com/expressjs/cookie-session)，本文主要介绍 cookie-session 的实现原理。
+对于 [Express](https://github.com/expressjs/express) 来说，代表第一种方案的第三方库有 [express-session](https://github.com/expressjs/session)，第二种方案的第三方库有 [cookie-session](https://github.com/expressjs/cookie-session)，本文主要介绍 cookie-session 的实现原理，源码解读基于 2.0.0-rc.1 版本。
 
-## 概念澄清
+## 一些概念
 ### JWT
 一个防篡改的身份验证标准。
 
@@ -17,14 +17,13 @@
 服务端保存用户态的结构，依赖服务端存储，服务端从 cookie 中获取 sid，再通过 sid 从持久层中查询数据。
 
 ### cookie-session
-cookie-session 的设计思想跟 JWT 相似，用户态不依赖服务端存储，服务端响应时设置整个 session 对象到 cookie，接收到请求的时候直接从 cookie 中获取整个 session 对象，不依赖服务端存储用户数据。也可以使用签名防止客户端篡改数据。跟 JWT 没有强关联关系，使用 cookie-session 的时候，开发者可以在 session 对象存储任何可序列化的数据结构。而 JWT 也并不依赖 cookie-session 实现。
-
+一个第三方库，设计思想跟 JWT 相似，用户态不依赖服务端存储，服务端响应时设置整个 session 对象到 cookie，服务端接收到请求的时候直接从 cookie 中获取整个 session 对象，不依赖服务端存储用户数据。也可以使用签名防止客户端篡改数据。跟 JWT 没有强关联关系，使用 cookie-session 的时候，开发者可以在 session 对象存储任何可序列化的数据结构。而 JWT 也并不依赖 cookie-session 实现。
 
 ## cookie-session 实现原理
 ### 整体流程
 开篇先整体讲下接收到请求和请求结束时发生了什么事情，有助于大家理解接下来要讲的代码细节。可以结合这个 [Demo](https://github.com/jinzhanye/cookie-session-demo) 一起理解本文。
 
-以下面的请求为例，请求进入服务时，cookie-session 调用 [Cookie](https://github.com/pillarjs/cookies "Cookie").get 从请求头中读取 Cookie，以及读取该 Cookie 的签名，并校验签名是否合法。如果是合法则将该 Cookie 字符串返回给 cookie-session，cookie-session 再将该串反序列化成一个 Session 对象。拿到 Session 对象后开发者可以对 session 进行一些操作。
+cookie-session 底层是依赖 [cookies](https://github.com/pillarjs/cookies) 实现的，以下面的请求为例，请求进入服务时，cookie-session 调用 Cookie.get 从请求头中读取 Cookie（my-session），以及读取该 Cookie 的签名(my-session.sig)，并校验签名是否合法。如果是合法则将该 Cookie 字符串返回给 cookie-session，cookie-session 再将该串反序列化成一个 Session 对象。拿到 Session 对象后开发者可以对 Session 进行一些操作。
 
 ```
 GET / HTTP/1.1
@@ -40,8 +39,7 @@ Cookie: my-session=eyJ0b2tlbkEiOiJmb28iLCJ0b2tlbkIiOiJiYXIifQ==; my-session.sig=
 If-None-Match: W/"a-nttZqUcoAe3sTHxhbDDKjwEcT4U"
 ```
 
-
-以下面响应为例，请求将要结束时，cookie-session 将当前的 session 实例进行序列化，再调用 Cookie.set 设置两个 Cookie，一个是序列化后的 session 实例，一个是该 cookie 的签名，也就是 Demo 响应里以 .sig 结尾的 Cookie。
+以下面响应为例，请求将要结束时，cookie-session 将当前的 Session 实例进行序列化，再调用 Cookie.set 设置两个 Cookie，一个是序列化后的 session 实例（my-session），一个是该 cookie 的签名（my-session.sig），也就是 Demo 响应里以 .sig 结尾的 Cookie。
 
 ```
 HTTP/1.1 200 OK
@@ -278,12 +276,10 @@ function onHeaders (res, listener) {
 
 
 function createWriteHead (prevWriteHead, listener) {
-  // TODO 为什么会用到 fired 变量 
   var fired = false
 
   return function writeHead (statusCode) {
     // ....
-    // TODO 为什么？
     // var args = setWriteHeadHeaders.apply(this, arguments)
     if (!fired) {
       fired = true
@@ -376,7 +372,7 @@ Cookie.prototype.toHeader = function () {
   }
 ```
 
-现在来签名是怎么做的，也就是 `sign` 方法的内部实现。this.keys 是在 `new Cookie()` 时绑定的 `Keygrip` 实例，我们看看 [Keygrip](https://github.com/crypto-utils/keygrip "Keygrip") 的源码就好。其实就是使用 SHA1 算法进行签名，然后以 Base64URL 的形式输出。
+现在来签名是怎么做的，也就是 [sign](https://github.com/crypto-utils/keygrip#keyssigndata) 方法的内部实现。this.keys 是在 `new Cookie()` 时绑定的 `Keygrip` 实例，我们看看 [Keygrip](https://github.com/crypto-utils/keygrip "Keygrip") 的源码就好。其实就是使用 SHA1 算法进行签名，然后以 Base64URL 的形式输出。
 
 ```js
 var crypto = require("crypto")
@@ -409,6 +405,8 @@ Cookie.get 主要做了三件事：
 1. 校验签名是否合法：对第一步获取 Cookie 进行签名然后与第二步中获取到的 Cookie 对比是否相等，相等即签名合法
 
 ```js
+var compare = require('tsscmp')
+
 // **** get cookie
 Cookies.prototype.get = function (name, opts) {
   var sigName = name + ".sig"
@@ -443,7 +441,6 @@ Cookies.prototype.get = function (name, opts) {
   if (index < 0) {
     this.set(sigName, null, { path: "/", signed: false })
   } else {
-    // 没看懂，为什么要在 index > 0 的情况下设置 signed 为 false 的 cookie，debugger 正常情况下 index 为 0，不会走这个逻辑
     index && this.set(sigName, this.keys.sign(data), { signed: false })
     return value
   }
@@ -452,7 +449,6 @@ Cookies.prototype.get = function (name, opts) {
 // Keygrip 源码，校验签名是否合法
 this.index = function (data, digest) {
   for (var i = 0, l = keys.length; i < l; i++) {
-   // 没看懂，为什么不直接用  === 比较两个字符串
     if (compare(digest, sign(data, keys[i]))) {
       return i
     }
@@ -462,10 +458,13 @@ this.index = function (data, digest) {
 }
 ```
 
-## todo
-自底向上调整
+[keygrip](https://github.com/crypto-utils/keygrip#keyssigndata)，`index` 方法为什么不直接用 `===` 判断签名是否有效，而是用 [tsscmp](https://github.com/suryagh/tsscmp) 这个库判断，其实是为了防止时序攻击，有兴趣的朋友可以阅读这篇文章——[如何通俗地解释时序攻击(timing attack)?](https://www.zhihu.com/question/20156213)了解。
+
+## 总结
+至此 cookie-session 主干逻辑源码解读完毕，看似简单的设置 Cookie、下发 Cookie 的第三方库，顺着源码深究进去其实会发现有很多值得学习的点，比如 JWT、防篡改签名、Base64、响应结束监听、如何获取头信息、如何设置头信息、时序攻击等等。TODO 唠叨两句。
 
 ## 参考
 - [jwt.io](https://jwt.io/)
 - [JSON Web Token 入门教程](https://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html)
 - [五个步骤轻松弄懂 JSON Web Token（JWT）](https://www.tomczhen.com/2017/05/25/5-easy-steps-to-understanding-json-web-tokens-jwt/)
+- [如何通俗地解释时序攻击(timing attack)?](https://www.zhihu.com/question/20156213)
