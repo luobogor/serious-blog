@@ -131,7 +131,7 @@ function _cookieSession(req, res, next) {
 }
 ```
 
-`_cookieSession` 的主干逻辑并不复杂，50 行左右。从代码可以看到，req 上绑定了一个 session 实例供开发者使用，整体可以分两个流程，一个是请求进来时读取 cookie，也就是 `getSession` 的逻辑。另一个设置 cookie，其中包括开发者设置 cookie 时调用的 `setSession` 逻辑，以及请求结时触发的 `onHeaders` 逻辑。而这些逻辑的底层都是依赖于第三库 `Cookies` 的 `get` 与 `set` 方法实现，这两个方法的内部实现讲完整体流程后会讲述。
+`_cookieSession` 的主干逻辑并不复杂，50 行左右。从代码可以看到，req 上绑定了一个 Session 实例供开发者使用，整体可以分两个流程，一个是请求进来时读取 cookie，也就是 `getSession` 的逻辑。另一个设置 cookie，其中包括开发者设置 cookie 时调用的 `setSession` 逻辑，以及请求结时触发的 `onHeaders` 逻辑。而这些逻辑的底层都是依赖于第三库 `Cookies` 的 `get` 与 `set` 方法实现，这两个方法的内部实现讲完整体流程后会讲述。
 
 ### 读取 Cookie
 
@@ -144,7 +144,7 @@ const tokenA = req.session.tokenA
 req.session.tokenA = 'foo'
 ```
 
-就会触发 `req.session` 的 getter 方法，出就是调用 `getSession`，`getSession` 调用 `tryGetSession`
+就会触发 `req.session` 的 getter 方法，也就是调用 `getSession`，`getSession` 调用 `tryGetSession`
 
 ```js
 function tryGetSession (cookies, name, opts) {
@@ -208,7 +208,7 @@ const sess = {// Session
   // .... 开发者可以添加多个 key
   _ctx: { // SessionContext
     _new: Boolean, // 是否为新的 SessionContext
-    _value: String, // 经过 Base64 编码序列化后的 Session 实例，以 Demo 为例也就是 base64Encode(JSON.stringify({ tokenA: 'foo', tokenB: 'bar' }))
+    _value: String, // 经过 Base64 编码序列化后的 Session 实例，以 Demo 为例就是 base64Encode(JSON.stringify({ tokenA: 'foo', tokenB: 'bar' }))
   }
 }
 ```
@@ -216,7 +216,7 @@ const sess = {// Session
 `_ctx` 是个 `unenumerable` 属性，所以 `_ctx` 是不会被 `JSON.stringify` 转换。`_new` 表示
 Session 实例是否通过 `Session.create` 创建的实例。`Session.create` 被调用的时机有两个，一个是上文提到的用户首次访问的情况；另一个是当开发者以整个对象的形式赋值 session（也就是 `req.session = { /*....*/ }` ）。
 
-上文提到过如果是请求头中存在 cookie，会通过 `Session.deserialize` 创建 `Session` 实例，这时 `_new` 为 `false`。而 _value 则是 `Cookie.get` 获取的值。 _value 逆 Base64 解码后可以得到一个 `Session` 实例。以下为 `Session.deserialize` 创建的对象：
+上文提到过如果是请求头中存在 cookie，会通过 `Session.deserialize` 创建 `Session` 实例，这时 `_new` 为 `false`。而 _value 则是 `Cookie.get` 获取的值。 _value 逆 Base64 解码后可以得到一个 `Session` 实例。以下为 `Session.deserialize` 创建的 Session 对象：
 
 ```js
 const sess = {// Session
@@ -291,6 +291,8 @@ function createWriteHead (prevWriteHead, listener) {
   }
 }
 ```
+
+至此 cookie-session 主干逻辑源码解读完毕，接下来看看更加底层的 Cookie库实现原理。
 
 ## Cookie 实现原理
 ### Cookie.set
@@ -461,7 +463,7 @@ this.index = function (data, digest) {
 [keygrip](https://github.com/crypto-utils/keygrip#keyssigndata)，`index` 方法为什么不直接用 `===` 判断签名是否有效，而是用 [tsscmp](https://github.com/suryagh/tsscmp) 这个库判断，其实是为了防止时序攻击，有兴趣的朋友可以阅读这篇文章——[如何通俗地解释时序攻击(timing attack)?](https://www.zhihu.com/question/20156213)了解。
 
 ## 总结
-至此 cookie-session 主干逻辑源码解读完毕，看似简单的设置 Cookie、下发 Cookie 的第三方库，顺着源码深究进去其实会发现有很多值得学习的点，比如 JWT、防篡改签名、Base64、响应结束监听、如何获取头信息、如何设置头信息、时序攻击等等。TODO 唠叨两句。
+至此 cookie-session 相关源码解读完毕，看似简单的设置 Cookie、下发 Cookie 的第三方库，顺着源码深究进去其实会发现有很多值得学习的点，比如 JWT、防篡改签名、Base64、响应结束监听、如何获取头信息、如何设置头信息、时序攻击等等。TODO 唠叨两句。
 
 ## 参考
 - [jwt.io](https://jwt.io/)
