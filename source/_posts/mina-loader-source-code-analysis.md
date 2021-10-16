@@ -86,8 +86,7 @@ webpack loader 是从右到左对于上面信息来说也就是下到上执行�
 - 第一个处理的  loader 都是 `selector-loader`
 - 最后一个 loader 都是 `file-loader`，也就是最后肯定有文件输出，输出的是 `[name].json`、`[name].wxml`、`[name].wxss` 这几个文件。
 - 再看看 `selecor-loader` 有个 `type`
-参数，`type=style` 输出的是 `[name].wxss` 文件、`type=template` 输出的是 `[name].wxml` 文件、`type=style` 输出的是 `[name].wxss` 文件，由此可以推断出 `selector-loader` 的作用是按照 `type` 参数
-对 `app.mina` 提取相关类型内容。
+参数，`type=style` 输出的是 `[name].wxss` 文件、`type=template` 输出的是 `[name].wxml` 文件、`type=style` 输出的是 `[name].wxss` 文件，由此可以推断出 `selector-loader` 的作用是按照 `type` 参数对 `app.mina` 提取相关类型内容。
 - 还有就是在 `selector-loader` 与 `file-loader` 之间的 loader，我们暂时称他们为中间  loader，不同类型的内容由特定的中间 loader 进行处理。
 
 到此我们大概了解 `mina-loader` 的工作流程，就是分别按类型提取 `app.mina` 的内容，然后用特定的 loader 处理特定的内容，最后使用 `file-loader` 输出文件。
