@@ -58,7 +58,7 @@ module.exports = (predicate) => {
 
 > A domain's "public suffix" is the portion of a domain that is controlled by a public registry, such as "com", "co.uk", and "pvt.k12.wy.us".  A domain's "registrable domain" is the domain's public suffix plus the label to its left. That is, for "https://www.site.example", the public suffix is "example", and the registrable domain is "site.example".  Whenever possible, user agents SHOULD use an up-to-date public suffix list, such as the one maintained by the Mozilla project at [PSL].
 
-域的「公共后缀」是由公共注册表控制的域的一部分，例如「com」，「co.uk」和「pvt.k12.wy.us」。 域的「可注册域」是该域的公共后缀加上其左侧的标签（也就是公共后缀+1）。即，对于「https://www.site.example」来说，公共后缀为「example」，可注册域为「site.example」。 用户代理应尽可能使用最新的公共后缀列表，例如 Mozilla 项目[\[PSL\]](https://publicsuffix.org/list/public_suffix_list.dat)维护的列表。
+域的「公共后缀」是由公共注册表控制的域的一部分，例如「com」，「co.uk」和「pvt.k12.wy.us」。 域的「可注册域」是该域的公共后缀加上其左侧的标签（也就是公共后缀+1）。即，对于「[https://www.site.example]()」来说，公共后缀为「example」，可注册域为「site.example」。 用户代理应尽可能使用最新的公共后缀列表，例如 Mozilla 项目[\[PSL\]](https://publicsuffix.org/list/public_suffix_list.dat)维护的列表。
 
 > 5.3 The Set-Cookie Header
 > 5.3.7. The SameSite Attribute
