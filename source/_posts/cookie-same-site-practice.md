@@ -3,9 +3,6 @@ title: Cookie SameSite 支持的最佳实践
 date: 2021-03-02 10:18:12
 categories: 技术
 ---
-
-# Cookie SameSite 支持的最佳实践
-
 ## 背景
 正如[Cookie 的 SameSite 属性](https://www.ruanyifeng.com/blog/2019/09/cookie-samesite.html)所说，为了防止 [CSRF](https://developer.mozilla.org/zh-CN/docs/Glossary/CSRF) 攻击，Cookie 的 SameSite 属性用来限制第三方 Cookie，从而减少安全风险。关于 SameSite 的一些基础这里不展开讲，此文主要讲解如何解决 SameSite 策略带来的一些问题。
 
@@ -24,7 +21,7 @@ the set-cookies was blocked because it had the “Secure” attribute but was no
 
 简单翻译就是，cookie 被阻止，因为它具有 Secure 属性，但未通过安全连接接收。所以设置了这个属性后一定要在 https 下进行传输，否则会有问题。
 
-### secure cookie 覆盖失败问题
+### Cookie 覆盖失败问题
 ![](https://gitee.com/yejinzhan/images/raw/master/20211024112609.png)
 
 如上图所示 http 响应中没有设置 `Secure` 属性，但浏览器设置 Cookie 还是失败了，这是为什么呢？Chrome 调试面板的响应会有这样的提示：
