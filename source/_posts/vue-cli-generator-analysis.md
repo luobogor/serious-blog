@@ -18,7 +18,7 @@ categories: 技术
 
 ## 询问模块
 
-```jsx
+```js
 /*
 * packages/@vue/cli/package.json
 */
@@ -52,7 +52,7 @@ await creator.create(options)
 
 从项目 `package.json` 开始分析可以知道，执行 `vue create [projectname]` 命令之后，先会 `new Creator`，接着执行 `createor.create`。`Creator` 构造方法主要是遍历 `lib/promptModules` 目录，收集各个模块需要询问的问题。
 
-```jsx
+```js
 /*
 * packages/@vue/cli/lib/Creator.js
 */
@@ -76,7 +76,7 @@ module.exports = class Creator extends EventEmitter {
 
 我们以 TS 模块为例，看看下 `packages/@vue/cli/lib/promptModules/typescript.js` 长什么样子。TS 模块向问题链加入了两个问题，第一个是否使用 TS，如果用户选择了使用 TS，就再询问是否使用`tsClassComponent`。再注册一个回调，当询问完成将对应的选项保存到 `plugins` 对象。
 
-```jsx
+```js
 /*
 * packages/@vue/cli/lib/promptModules/typescript.js
 */
@@ -120,7 +120,7 @@ module.exports = cli => {
 
 看看 `preset.plugins['@vue/cli-service']` 这个语句，内置的 `@vue/cli-service` 插件用于生成基础代码模板，后面会详细讲到。插件收集完成后就调用 `resolvePlugins` 加载插件，接着遍历 `preset.plugins` 将对应依赖名称添加到将要生成的 `package.json`，供 cli  service 使用（至于 cli  service 怎么用，下一篇文章讲述）。
 
-```jsx
+```js
 /*
 * packages/@vue/cli/lib/Creator.js
 */
@@ -185,7 +185,7 @@ module.exports = class Creator extends EventEmitter {
 
 详细看看 `resolvePlugins` 方法，此方法遍历 `preset.plugins` 对象，使用 `loadModule`（内部用 `require` 实现）加载插件目录下的 Generator 模块。
 
-```jsx
+```js
 /*
 * packages/@vue/cli/lib/Creator.js
 */
@@ -214,7 +214,7 @@ async resolvePlugins (rawPlugins, pkg) {
 
 回到 `create` 流程，插件加载完成后，进行  `new Generator`。
 
-```jsx
+```js
 /*
 * packages/@vue/cli/lib/Creator.js
 */
@@ -234,7 +234,7 @@ await generator.generate({
 
 接着 `generator.generate` 执行 `initPlugins` 遍历插件，执行 `plugin.apply(new GeneratorAPI()))` 进行代码生成，也就是执行上文提到的插件目录下的 `generator/index.js`。
 
-```jsx
+```js
 /*
 * packages/@vue/cli/lib/Generator.js
 */
@@ -270,7 +270,7 @@ module.exports = class Generator {
 
 我们来看看 `cli-plugin-typescript` 的 generator，它做事情就是将 `package.json` 加上 `typescript` 依赖。
 
-```jsx
+```js
 /*
 * cli-plugin-typescript/generator/index.js
 */
@@ -302,13 +302,12 @@ module.exports.after = '@vue/cli-plugin-router'
 
 接着调用 `render` 调用 `_injectFileMiddleware` 注册回调保存到 `fileMiddlewares`，收集需要编译的文件，回调的时机后面会提及。
 
-```jsx
+```js
 /*
 * packages/@vue/cli/lib/GeneratorAPI.js
 */
 
 module.exports = class GeneratorAPI {
-
   _injectFileMiddleware (middleware) {
     this.generator.fileMiddlewares.push(middleware)
   }
@@ -343,7 +342,7 @@ module.exports = class GeneratorAPI {
 
 最后调用 `convert.js`，该方法注册 `postProcessFiles` 回调，`postProcessFiles` 回调是修改文件的最后一次机会，这里是将所有 `.js` 文件名改成 `.ts`。
 
-```jsx
+```js
 /*
 * packages/@vue/cli-plugin-typescript/generator/convert.js
 */
@@ -377,7 +376,7 @@ module.exports = (api, { convertJsToTs = true } = {}) => {
 
 我们回到主流程，上文`initPlugins` 执行完毕后， `resolveFiles` 方法执行 `render` 收集的 `fileMiddlewares`。`fileMiddlewares` 读取 template 目录下的文件，调用 `ejs` 编译它们，然后保存到 `this.files`。最后`resolveFiles` 调用 `postProcessFilesCbs` 执行上文 `covert.js` 注册的回调。
 
-```jsx
+```js
 /*
 * packages/@vue/cli/lib/Generator.js
 */
@@ -397,7 +396,7 @@ async resolveFiles () {
 
 最后 `generate` 调用 `writeFileTree` 将 files 数组保存的文件内容写入到硬盘，到此代码生成流程完毕。
 
-```jsx
+```js
 /*
 * packages/@vue/cli/lib/Generator.js
 */
@@ -419,10 +418,9 @@ module.exports = class Generator {
 ```
 
 ## 插件执行顺序
-
 这里我们再讲点小的知识点， `cli-plugin-typescript/generator/index.js` 最后一句 `module.exports.after = '@vue/cli-plugin-router'`，表示 ts 插件应该放在 router 插件后执行。原因是这样的，我们看看下面这个继承 `@vue/cli-plugin-router/generator/template/src/views/HomeView.vue` 的模板（关于模板语法可以参考[官方文档](https://cli.vuejs.org/zh/dev-guide/plugin-dev.html#%E5%88%9B%E5%BB%BA%E6%96%B0%E7%9A%84%E6%A8%A1%E6%9D%BF)），如果 ts 插件先执行，router 插件后执行，那么最终结果是 router 插件的 `HomeView.vue` 模板，而不是 ts 插件的  `HomeView.vue` 模板，显然这不是我们想要的。
 
-```
+```ejs
 /* 
 * packages/@vue/cli-plugin-typescript/generator/template-vue3/src/views/HomeView.vue
 */
