@@ -280,7 +280,7 @@ CoreDNS 将集群中的 Service 名称和 IP 做配，集群中 Service 和 Serv
 
 Service 域名映射规则：[ServiceName].[NameSpace].svc.cluster.local，通过以下命令我们可以验证服务发现。
 
-``` shell
+```shell
 # 进入容器内部
 kubectl exec -it front-v1-bdfd88666-4cskk -- /bin/sh
 
