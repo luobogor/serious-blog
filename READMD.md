@@ -1,6 +1,6 @@
 ## 部署
 ```shell
-npm run pub
+npm run release
 cd ./.deploy_git
 git remote add origin git@gitee.com:yejinzhan/yejinzhan.git
 git push origin master --force

@@ -5,7 +5,7 @@
     "build": "hexo g -w",
     "server": "hexo s",
     "clean": "hexo clean",
-    "pub": "hexo clean && hexo g && hexo d",
+    "release": "hexo clean && hexo g && hexo d",
     "dev": "npm run build & npm run server"
   },
   "hexo": {
