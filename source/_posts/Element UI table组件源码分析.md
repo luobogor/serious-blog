@@ -235,9 +235,8 @@ render(){
 ## 参考 
 [Element UI table官方文档](http://element.eleme.io/2.4/#/zh-CN/component/table)
 
-
 ---
 
-欢迎关注我的公众号 Luobo FE，获取最新资讯动态～
+欢迎关注我的公众号 Luobo FE，获取最新资讯动态🔥
 
 ![](/images/common/qrcode.jpg)
