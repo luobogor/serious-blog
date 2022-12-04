@@ -1,9 +1,3 @@
----
-title: zepto与focus/blur与事件委派
-date: 2018-01-26 20:25:28
-categories: 技术
----
-
 ![image](https://tva1.sinaimg.cn/large/007S8ZIlgy1gf53ao51dpj30m80eu4eu.jpg)
 
 --- | focusin、focusout | focus、blur 
@@ -94,11 +88,9 @@ eventCapture | false，冒泡阶段触发回调 |  true，捕获阶段触发回�
 现在所有浏览都已经支持foucsin，未来属于支持冒泡的focusin
 
 ## 参考
-- [MDN focusin浏览器支持](https://developer.mozilla.org/en-US/docs/Web/Events/focusin)
+- MDN focusin浏览器支持 https://developer.mozilla.org/en-US/docs/Web/Events/focusin
 - <\<Javascript高级编程>>第三版 13.1.3 DOM事件流
 
----
-
-欢迎关注我的公众号 Luobo FE，获取最新资讯动态～
-
-![](/images/common/qrcode.jpg)
+<section class="custom-bottom">
+  欢迎大家持续关注 Luobo FE，更多精彩文章持续出炉哦～
+</section>
