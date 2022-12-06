@@ -5,8 +5,9 @@ categories: 技术
 ---
 
 ## 背景
+Elasticsearch 有多个版本，本文以 7.17 为例进行讲解。
 
-阅读本文只需要懂一点点 Node，Elasticsearch 零基础、Kibana 零基础，都没有问题。Elasticsearch 有多个版本，本文以 7.17 为例进行讲解。Kibana 帮助我们用可视化的方式进行 Elasticsearch 查询。
+使用 Node 将日志存储到 ES，使用 Kibana 用可视化的方式进行 ES 查询日志。
 
 
 ## 安装
@@ -19,7 +20,7 @@ brew tap elastic/tap
 brew install elastic/tap/elasticsearch-full
 ```
 
-安装完成后，执行控制台执行 `elasticsearch` 命令启动 ES，启动后如何能正常访问 [http://localhost:9200](http://localhost:9200) 表示启动成功。[全文搜索引擎 Elasticsearch 入门教程](https://www.ruanyifeng.com/blog/2017/08/elasticsearch.html)
+安装完成后，执行控制台执行 `elasticsearch` 命令启动 ES，启动后如何能正常访问 [http://localhost:9200](http://localhost:9200) 表示启动成功。
 
 ```shell
 $ curl http://localhost:9200
@@ -42,7 +43,7 @@ $ curl http://localhost:9200
 }
 ```
 
-参考 [ES Kibana 文档](https://www.elastic.co/guide/en/kibana/7.17/brew.html#brew-layout)，执行以下命令安装 Kibana。
+执行以下命令安装 Kibana。
 
 ```shell
 $ brew tap elastic/tap
@@ -56,9 +57,116 @@ $ brew install elastic/tap/kibana-full
 
 至此我们已经环境搭建完毕，在进入下一小节之前如果之前没有接触过 ES，可以看看阮老师的文章 [《全文搜索引擎 Elasticsearch 入门教程》](https://www.ruanyifeng.com/blog/2017/08/elasticsearch.html) 简单了解一下，有利于消化后面的内容。阮老师文章里提到的命令也可以在 [Kibana Dev Tools](http://localhost:5601/app/dev_tools#/console) 执行，内容被格式化后阅读体验更佳。
 
-## Node 日志上报 
 
-## 参考 
+## Node 日志上报到 ES  
+Node 日志上报到 ES 参考这个 [Demo](http.baidu.com)，我们使用 [winston](https://www.npmjs.com/package/winston) 收集日志，使用 [winston-elasticsearch](https://www.npmjs.com/package/winston-elasticsearch) 上报日志到 ES。winston-elasticsearch 每天新建一个命名为 simple-es-logger-demo-YYYY.MM.DD 的 index。
+
+```js
+/**
+ * es-logger.js
+ */
+
+const { createLogger: createWinstonLogger, transports, format } = require('winston')
+const { ElasticsearchTransport } = require('winston-elasticsearch')
+
+const esNode = 'http://localhost:9200'
+
+function createLogger() {
+  return createWinstonLogger({
+    level: 'info',// 只上报 info 级别以上日志，包括 info、warn、error
+    transports: [
+      new transports.Console({// 输出到控制台
+        format: format.json(),
+      }),
+      new ElasticsearchTransport({// 输出到 ES
+        indexPrefix: 'simple-es-logger-demo',// ES index 前缀
+        indexSuffixPattern: 'YYYY.MM.DD',// ES index 后缀，跟前缀拼接起来 index 最终就是 simple-es-logger-demo-YYYY.MM.DD，如 simple-es-logger-demo-2023.01.12
+        clientOpts: {
+          node: esNode,
+          maxRetries: 5,
+          requestTimeout: 10000,
+          sniffOnStart: false,
+        },
+      })
+    ]
+  })
+}
+
+module.exports = createLogger()
+```
+
+> Compatibility For Winston 3.7, Elasticsearch 8.0 and later, use the >= 0.17.0. For Winston 3.4, Elasticsearch 7.8 and later, use the >= 0.16.0. For Winston 3.x, Elasticsearch 7.0 and later, use the >= 0.7.0. For Elasticsearch 6.0 and later, use the 0.6.0. For Elasticsearch 5.0 and later, use the 0.5.9. For earlier versions, use the 0.4.x series.
+
+这里版本的问题需要注意，我们使用的是 ES 7.17，从 `winston-elasticsearch` 的文档可以得知，这里我们的 `winston` 需要选择 3.4 版本， `winston-elasticsearch` 需要选择 >= 0.16.0 的版本。
+
+```json5
+// package.json
+"dependencies": {
+  "koa": "^2.5.2",
+  "winston": "3.4.0",
+  "winston-elasticsearch": "0.16.1"
+},
+```
+
+接着我们用 Koa 搭建一个简单的服务。
+
+```js
+/**
+ * index.js
+ */
+
+const Koa = require('koa')
+const app = new Koa()
+const logger = require('./es-logger')
+
+
+app.use(async (ctx, next) => {
+  const body = {
+    message: `服务被访问了，生成随机数：${ Math.floor(Math.random() * 100) }`
+  }
+
+  logger.info(JSON.stringify(body))
+
+  ctx.body = body
+
+  next()
+})
+
+const port = 7115
+
+app.listen(port, () => {
+  logger.info(`服务启动成功，端口 ${7115}`)
+})
+```
+
+启动服务后控制台输出如下。
+
+```
+$ npm run dev
+{"level":"info","message":"服务启动成功，端口 7115"}
+```
+
+访问 [http://localhost:7115](http://localhost:7115)，控制台输出如下。
+
+```
+$ curl http://localhost:7115
+{"level":"info","message":"{\"message\":\"服务被访问了，生成随机数：67\"}"}
+```
+
+如果你的控制台没有报错说明日志已经上报到 ES，接下来我们看看如何使用 Kibana 查看我们上报的日志。
+
+## 使用 Kibana 查看日志
+在首页左侧面板导航找到 Management -> Stack Management，点击进入 Stack Management。再在左侧导航找到 [Index Patterns](http://localhost:5601/app/management/kibana/indexPatterns)。Name 输入 simple-es-logger-demo-*，过滤以 `simple-es-logger-demo` 开头的 index。Timestamp field 选择 @timestamp
+
+![img.png](../images/node-log-to-ek/img3.png)
+
+
+
+## 参考
+- [Elasticsearch 官方文档](https://www.elastic.co/guide/en/elasticsearch/reference/7.17/targz.html)
+- [全文搜索引擎 Elasticsearch 入门教程](https://www.ruanyifeng.com/blog/2017/08/elasticsearch.html)
+- [winston](https://www.npmjs.com/package/winston)
+- [winston-elasticsearch](https://www.npmjs.com/package/winston-elasticsearch)
 
 ---
 
