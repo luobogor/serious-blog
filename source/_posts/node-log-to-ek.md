@@ -1,5 +1,5 @@
 ---
-title: Node.js 日志上报到 Elasticsearch、Kibana 实战
+title: Node.js 日志上报到 Elasticsearch、Kibana 实战（含开源项目）
 date: 2022-12-05 00:25:12
 categories: 技术
 ---
@@ -160,6 +160,21 @@ $ curl http://localhost:7115
 
 ![img.png](../images/node-log-to-ek/img3.png)
 
+## 封装 SDK
+那么我们该如何封装一个优雅的 SDK (打广告时间滑稽)
+
+- 请求中间件：自动记录每个请求、响应信息
+- 性能问题：非 Serverless 环境先缓存日志，每 30s 上报一次
+- Serverless 环境支持：我们团队有些项目已经迁移到 Serverless 环境部署
+- 更好的 API 体验：使用 xxx 保证 json 安全，error 格式化
+
+```
+${timestamp} ${logLevel} ${pid} [${userId}/${ip}/${traceId}/${cost}ms ${method} ${url}] ${message}
+```
+
+- @za-node/express-logger:
+- @za-node/koa-logger:
+- @za-node/egg-framework:
 
 
 ## 参考
