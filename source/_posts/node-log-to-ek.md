@@ -5,10 +5,9 @@ categories: 技术
 ---
 
 ## 背景
+应用日志一般做法，Filebeat 从文件收集日志做日志过滤、清洗，发送到 Kafka 削峰处理，Logstash 从 Kafka 读取日志发送到 ES。应用日志，日志量也不大，Node 直接将日志存储到 ES，使用 Kibana 用可视化的方式进行 ES 查询日志。
+
 Elasticsearch 有多个版本，本文以 7.17 为例进行讲解。
-
-使用 Node 将日志存储到 ES，使用 Kibana 用可视化的方式进行 ES 查询日志。
-
 
 ## 安装
 下面涉及到安装的步骤都以 MacOS 为例进行讲解，其他操作系统可以参考 [《Set up Elasticsearch》](https://www.elastic.co/guide/en/elasticsearch/reference/7.17/targz.html) 进行操作。
@@ -97,7 +96,7 @@ module.exports = createLogger()
 
 > Compatibility For Winston 3.7, Elasticsearch 8.0 and later, use the >= 0.17.0. For Winston 3.4, Elasticsearch 7.8 and later, use the >= 0.16.0. For Winston 3.x, Elasticsearch 7.0 and later, use the >= 0.7.0. For Elasticsearch 6.0 and later, use the 0.6.0. For Elasticsearch 5.0 and later, use the 0.5.9. For earlier versions, use the 0.4.x series.
 
-这里版本的问题需要注意，我们使用的是 ES 7.17，从 `winston-elasticsearch` 的文档可以得知，这里我们的 `winston` 需要选择 3.4 版本， `winston-elasticsearch` 需要选择 >= 0.16.0 的版本。
+这里版本的问题需要注意，我们使用的是 ES 7.17，从 `winston-elasticsearch` 的文档可以得知，`winston` 需要选择 3.4 版本， `winston-elasticsearch` 需要选择 >= 0.16.0 的版本。
 
 ```json5
 // package.json
@@ -135,15 +134,8 @@ app.use(async (ctx, next) => {
 const port = 7115
 
 app.listen(port, () => {
-  logger.info(`服务启动成功，端口 ${7115}`)
+  console.log(`服务启动成功，http://localhost:${7115}`)
 })
-```
-
-启动服务后控制台输出如下。
-
-```
-$ npm run dev
-{"level":"info","message":"服务启动成功，端口 7115"}
 ```
 
 访问 [http://localhost:7115](http://localhost:7115)，控制台输出如下。
@@ -153,7 +145,20 @@ $ curl http://localhost:7115
 {"level":"info","message":"{\"message\":\"服务被访问了，生成随机数：67\"}"}
 ```
 
-如果你的控制台没有报错说明日志已经上报到 ES，接下来我们看看如何使用 Kibana 查看我们上报的日志。
+```
+{
+  "@timestamp": "2022-12-07T06:19:24.969Z",
+  "message": "{\"message\":\"服务被访问了，生成随机数：14\"}",
+  "severity": "info",
+  "fields": {}
+}
+```
+
+![img.png](img.png)
+
+如果你的控制台没有报错说明日志已经上报到 ES，接下来我们看看如何使用 Kibana 查看我们上报的日志。`message: "14"`
+
+![img_1.png](img_1.png)
 
 ## 使用 Kibana 查看日志
 在首页左侧面板导航找到 Management -> Stack Management，点击进入 Stack Management。再在左侧导航找到 [Index Patterns](http://localhost:5601/app/management/kibana/indexPatterns)。Name 输入 simple-es-logger-demo-*，过滤以 `simple-es-logger-demo` 开头的 index。Timestamp field 选择 @timestamp
