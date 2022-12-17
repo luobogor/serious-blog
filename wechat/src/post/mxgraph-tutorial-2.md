@@ -1,9 +1,13 @@
+# mxGraph 入门：实战篇
+
+![Cover](https://gitee.com/yejinzhan/images/raw/master/20200530160357.png)
+
 书接上回，这次我们进行 mxGraph 项目实战，这部分我主要挑一些这个项目 https://github.com/jinzhanye/pokemon-diagram 比较重要的点进行讲解。
 
 ## 写一个节点组合
 下面以项目的这个节点为例，讲解如何组合节点
 
-![17](https://gitee.com/yejinzhan/images/raw/master/20200530153022.jpeg)
+![](https://gitee.com/yejinzhan/images/raw/master/20200530153022.jpeg)
 
 
 ```js
@@ -31,11 +35,11 @@ const insertVertex = (dom) => {
 
 单单 `nodeRootVertex` 就是长这个样子。通过设置自定义的 `node` 样式(见 Graph https://github.com/jinzhanye/pokemon-diagram/blob/master/src/graph/Graph.js 类 _putVertexStyle 方法)与 `image` 属性设置图片路径配合完成。
 
-![18](https://gitee.com/yejinzhan/images/raw/master/20200530153031.jpeg)
+![](https://gitee.com/yejinzhan/images/raw/master/20200530153031.jpeg)
 
 因为默认情况下一个节点只能有一个文本区和一个图片区，要增加额外的文本和图片就需要组合节点。在 `nodeRootVertex` 上加上 `titleVertex` 文本节点和 `normalTypeVertex` 图片节点，最终达到这个效果。
 
-![19](https://gitee.com/yejinzhan/images/raw/master/20200530153125.jpeg)
+![](https://gitee.com/yejinzhan/images/raw/master/20200530153125.jpeg)
 
 
 有时需要为不同子节点设置不同的鼠标悬浮图标，如本项目鼠标悬浮到 `normalTypeVertex ` 时鼠标变为手形，参考 AppCanvas.vue 的 setCursor 方法，重写 `mxGraph.prototype.getCursorForCell` 可以实现这个功能。
@@ -52,7 +56,7 @@ const setCursor = () => {
 };
 ```
 
-#### 编辑内容
+### 编辑内容
 下面这段代码是编辑内容比较常用的设置
 
 ```js
@@ -68,7 +72,7 @@ mxCellEditor.prototype.blurEnabled = true;
 
 重点说说 mxCellEditor.prototype.blurEnabled https://jgraph.github.io/mxgraph/docs/js-api/files/view/mxCellEditor-js.html#mxCellEditor.blurEnabled 这个属性，默认情况下如果用户在输入内容时鼠标点击了画布之外的不可聚焦区域(div、section、article等)，节点内的编辑器是不会失焦的，这导致了 LABEL_CHANGED https://jgraph.github.io/mxgraph/docs/js-api/files/view/mxGraph-js.html#mxGraph.mxEvent.LABEL_CHANGED 事件不会被触发。但在实际项目开发中一般我们会期望，如果用户在输入内容时鼠标点击了画布之外的地方就应该算作完成一次输入，然后通过被触发的 `LABEL_CHANGED` 事件将修改后的内容同步到服务端。通过 `mxCellEditor.prototype.blurEnabled = true` 这行代码设置可以满足我们的需求。
 
-#### 可换行的 label
+### 可换行的 label
 ````js
 const titleVertex = graph.insertVertex(nodeRootVertex, null, title,
       0.1, 0.65, 80, 16,
@@ -78,18 +82,18 @@ const titleVertex = graph.insertVertex(nodeRootVertex, null, title,
 
 对于非输入的文本内容，默认情况下即便文本超出容器宽度也是不会换行的。我们项目中宽度为 80 的 titleVertex 正是这样一个例子。
 
-![20](https://gitee.com/yejinzhan/images/raw/master/20200530153148.jpeg)
+![](https://gitee.com/yejinzhan/images/raw/master/20200530153148.jpeg)
 
 要设置换行需要做两件事，第一是通过这行代码 [mxGraph.setHtmlLabels(true)](https://jgraph.github.io/mxgraph/docs/js-api/files/view/mxGraph-js.html#mxGraph.setHtmlLabels)，使用 html 渲染文本(mxGraph 默认使用 svg的text 标签渲染文本)。第二是像上面的 titleVertex 的样式设置一样，添加一句 [whiteSpace=wrap](https://jgraph.github.io/mxgraph/docs/js-api/files/util/mxConstants-js.html#mxConstants.STYLE_WHITE_SPACE)。
 
-![21](https://gitee.com/yejinzhan/images/raw/master/20200530153159.jpeg)
+![](https://gitee.com/yejinzhan/images/raw/master/20200530153159.jpeg)
 
 ## Model
 现在介绍一下 Model 这个概念，Model 是当前图形的数据结构化表示。mxGraphModel https://jgraph.github.io/mxgraph/docs/js-api/files/model/mxGraphModel-js.html 封装了 Model 的相关操作。
 
 你可以启动项目，画一个这样的图，然后点击输出XML。为了保的 xml 与下面的一致，需要先拖出智爷，再拖出超级皮卡丘，最后连接边。
 
-![22](https://gitee.com/yejinzhan/images/raw/master/20200530153219.jpeg)
+![](https://gitee.com/yejinzhan/images/raw/master/20200530153219.jpeg)
 
 控制台应该输出这样一份 xml
 
@@ -126,14 +130,14 @@ const titleVertex = graph.insertVertex(nodeRootVertex, null, title,
 
 data 值是原对象经 JSON.stringify 得到的，经转义后就变成了上面的样子。控制台还打印了一个 mxGraphModel 对象，对比上面的 xml 与 下图的节点对象，可以发现它们只是同一个 Model 的不同表现形式，xml 正是将 mxGraph.model https://jgraph.github.io/mxgraph/docs/js-api/files/view/mxGraph-js.html#mxGraph.model 格式化而成的。
 
-![23](https://gitee.com/yejinzhan/images/raw/master/20200530153229.jpeg)
+![](https://gitee.com/yejinzhan/images/raw/master/20200530153229.jpeg)
 
 ## 事件
 本项目监听事件写在 AppCanvas.vue https://github.com/jinzhanye/pokemon-diagram/blob/master/src/pages/AppCanvas.vue 的 _listenEvent 方法，可以在这个方法了解一些常用的事件。下图来自 mxGraph https://jgraph.github.io/mxgraph/docs/js-api/files/view/mxGraph-js.html#mxGraph 类的方法调用依赖图，我们可以从这里看出整个框架的事件流动。
 
-![24](https://gitee.com/yejinzhan/images/raw/master/20200530153243.png)
+![](https://gitee.com/yejinzhan/images/raw/master/20200530153243.png)
 
-#### 监听事件
+### 监听事件
 
 本项目的 _listenEvent 方法用到两个事件监听对象。
 
@@ -141,15 +145,15 @@ data 值是原对象经 JSON.stringify 得到的，经转义后就变成了上�
 
 - mxGraph.getSelectionModel() https://jgraph.github.io/mxgraph/docs/js-api/files/view/mxGraph-js.html#mxGraph.getSelectionModel 返回一个 mxGraphSelectionModel https://jgraph.github.io/mxgraph/docs/js-api/files/view/mxGraphSelectionModel-js.html#mxGraphSelectionModel.mxGraphSelectionModel 对象，这个对象也是继承自 `mxEventSource` 有 `mxEvent.UNDO、mxEvent.CHANGE` 两个事件，通过监听 `mxEvent.CHANGE` 事件可以获取当前被选中的 `Cell`。
 
-#### ADD\_CELLS 与 CELLS\_ADD 的区别
-![26](https://gitee.com/yejinzhan/images/raw/master/20200530153315.jpeg)
+### ADD\_CELLS 与 CELLS\_ADD 的区别
+![](https://gitee.com/yejinzhan/images/raw/master/20200530153315.jpeg)
 
 `mxGraph` 类有很多 `XXX_CELLS`、`CELLS_XXXED` 这种形式的事件，这部分我还没弄懂，下面仅以添加事件为例探讨这两类事件的区别。
 
 - 添加 `Cell` 的时候会触发两个事件 `ADD_CELLS`、`CELLS_ADDED`， 先触发 `CELLS_ADDED` 后触发 `ADD_CELLS`。
 - `ADD_CELLS` 在 `addCells` 方法中触发，而 `CELLS_ADDED` 在 `cellsAdded` 方法中触发。而对于 addCells https://jgraph.github.io/mxgraph/docs/js-api/files/view/mxGraph-js.html#mxGraph.addCells 与 cellsAdded https://jgraph.github.io/mxgraph/docs/js-api/files/view/mxGraph-js.html#mxGraph.cellsAdded 官方文档的说明并不能体现出两者的区别，再深究下去就要查阅源码了。按经验而言后触发的事件会携带更多的信息，所以平时开发我会监听 `ADD_CELLS` 事件。`MOVE_CELLS、CELLS_MOVED`、`REMOVE_CELLS、CELLS_REMOVED` 等事件与此类似。
 
-#### 监听 Cell 添加事件
+### 监听 Cell 添加事件
 
 从上面的方法调用依赖图中我们可以看到，`insertVertex`、`insertEdge` 最终都被当作 `Cell` 处理，在后续触发的事件也没有对 `节点/边` 进行区分，而是统一当作 `Cell` 事件。所以对于一个 `Cell` 添加事件，需要自己区别是添加了节点还是添加了边。
 
@@ -170,7 +174,7 @@ graph.addListener(mxEvent.CELLS_ADDED, (sender, evt) => {
 
 还有就是对于子节点添加到父节点的情况(如本项目将 titleVertex 、normalTypeVertex 添加到 nodeRootVertex)也是会触发 `Cell` 添加事件的。通常对于这些子节点不作处理，可以像 05.consistuent.html https://github.com/jinzhanye/mxgraph-demos/blob/master/src/05.consistuent.html 一样用一个 `isPart` 判断过滤掉。
 
-#### 自定义事件
+### 自定义事件
 
 上面提到过 mxGraph 继承自 mxEventSource，调用父类的 fireEvent https://jgraph.github.io/mxgraph/docs/js-api/files/util/mxEventSource-js.html#mxEventSource.mxEventSource 可触发自定义事件。下面是一个简单的例子
 
@@ -234,3 +238,10 @@ xmlCanvas.translate(
 - mxGraph User Manual – JavaScript Client https://jgraph.github.io/mxgraph/docs/manual.html
 - mxGraph API Specification https://jgraph.github.io/mxgraph/docs/js-api/files/index-txt.html
 - mxGraph Javascript Examples https://jgraph.github.io/mxgraph/javascript/index.html
+
+
+<section class="custom-bottom">
+  欢迎关注 Luobo FE，更多精彩内容持续出炉🔥
+</section>
+
+![](/images/common/qrcode.jpg)

@@ -1,6 +1,8 @@
+# mxGraph 入门：理论篇
+
 ![Cover](https://gitee.com/yejinzhan/images/raw/master/20200530160357.png)
 
-在上一篇文章 《记一次绘图框架技术选型: jsPlumb VS mxGraph》提到了我为什么要去学习 mxGraph。在入门时我遇到了以下几个问题
+在上一篇文章 《记一次绘图框架技术选型 jsPlumb VS mxGraph》提到了我为什么要去学习 mxGraph。在入门时我遇到了以下几个问题
 
 - 官方文档偏向理论，没能较好地结合代码进行讲解
 - 虽然官方给出的例子很多，但没有说明阅读顺序，对刚入门的我不知道应该从哪开始阅读
@@ -8,7 +10,7 @@
 
 通过自己对着官方文档死磕了一段时间并在公司项目中进行实践后，慢慢开始掌握这个框架的使用。下面我就根据我的学习经验写一篇比较适合入门的文章。
 
-官方 https://jgraph.github.io/mxgraph 列了比较多文档，其中下面这几份是比较有用的。
+官方列了比较多文档，其中下面这几份是比较有用的。
 
 - mxGraph Tutorial https://jgraph.github.io/mxgraph/docs/tutorial.html，这份文档主要讲述整个框架的组成
 - mxGraph User Manual – JavaScript Client https://jgraph.github.io/mxgraph/docs/manual.html，这份文档对一些重要的概念进行讲解，以及介绍一些重要的 API 
@@ -48,11 +50,11 @@ mxBasePath = '../src';
 
 首先要声名一个全局变量 `mxBasePath` 指向一个路径，然后引入 mxGraph。
 
-![2](https://gitee.com/yejinzhan/images/raw/master/20200530152148.jpeg)
+![](https://gitee.com/yejinzhan/images/raw/master/20200530152148.jpeg)
 
 `mxBasePath` 指向的路径作为 mxGraph 的静态资源路径。上图是 HelloWorld 项目的 `mxBasePah`，这些资源除了 js 目录 ，其他目录下的资源都是 mxGraph 运行过程中所需要的，所以要在引入 mxGraph 前先设置 `mxBasePath`。 
 
-![3](https://gitee.com/yejinzhan/images/raw/master/20200530152155.jpeg)
+![](https://gitee.com/yejinzhan/images/raw/master/20200530152155.jpeg)
 
 再来看看 javascript 目录下有两个 `mxClient.js` 版本。 一个在 `javascript/src/js/mxClient.js` ，另一个在 `javascript/mxClient.js`，后者是前者打包后的版本，所以两者是可以替换使用的。如果你的项目是使用 script 标签引入 mxGraph，可以参考这个库 https://github.com/jinzhanye/mxgraph-demos/blob/master/src/01.helloworld.html 。
 
@@ -111,7 +113,7 @@ const {
 ### 事务
 官方的 HelloWorld https://github.com/jgraph/mxgraph/blob/master/javascript/examples/helloworld.html 的例子向我们展示了如何将节点插入到画布。比较引人注意的是 `beginUpdate` 与 `endUpdate` 这两个方法，这两个方法在官方例子中出镜频率非常高，我们来了解一下他们是干嘛用的，嗯，真是只是了解一下就可以了，因为官方对两个方法的描述对入门者来说真的是比较晦涩难懂，而且我在实际开发中基本用不上这两个方法。可以等掌握这个框架基本使用后再回过头来研究。下面的描述来源这个文档 https://jgraph.github.io/mxgraph/docs/tutorial.html，我来简单概括一下有关这两个方法的相关信息。
 
-![4_1](https://gitee.com/yejinzhan/images/raw/master/20200530153421.jpeg)
+![](https://gitee.com/yejinzhan/images/raw/master/20200530153421.jpeg)
 
 - `beginUpdate、endUpdate` 用于创建一个事务，一次 `beginUpdate` 必须对应一次 `endUpdate`
 - 为了保证，假如 beginUpdate 执行失败，endUpdate 永远不会被调用，`beginUpdate 一定要放到 try 块之外`
@@ -151,35 +153,35 @@ function mxGeometry(x,y,width,height){}
 ```
 mxGeometry https://jgraph.github.io/mxgraph/docs/js-api/files/model/mxGeometry-js.html#mxGeometry.mxGeometry 类表示 `Cell` 的几何信息，宽高比较好理解，只对节点有意义，对边没意义。下面通过 02.geometry.html https://github.com/jinzhanye/mxgraph-demos/blob/master/src/02.geometry.html 这个例子说明如`x、y`的作用。
 
-![4](https://gitee.com/yejinzhan/images/raw/master/20200530152211.jpeg)
+![](https://gitee.com/yejinzhan/images/raw/master/20200530152211.jpeg)
 
 `mxGeometry ` 还有一个很重要的布尔属性 `relative`，
 
 - **`relative` 为 `false` 的节点，表示以画布左上角为基点进行定位，`x、y` 使用的是`绝对单位`**
 
-	上一小节提到 `insertVertex` 内部会创建 `mxGeometry` 类。使用 `mxGraph.insertVertex` 会创建一个 `mxGeometry.relative` 为 false 的节点，如 A 节点
+上一小节提到 `insertVertex` 内部会创建 `mxGeometry` 类。使用 `mxGraph.insertVertex` 会创建一个 `mxGeometry.relative` 为 false 的节点，如 A 节点
 	
-	![](https://gitee.com/yejinzhan/images/raw/master/20200530152616.png)	
+![](https://gitee.com/yejinzhan/images/raw/master/20200530152616.png)	
 
 - **`relative` 为 `true` 的节点，表示以父节点左上角为基点进行定位，`x、y` 使用的是`相对单位`**
 
-	使用 `mxGraph.insertVertex` 会创建一个 relative 为 false 的节点。如果你要将一个节点添加到另一个节点中需要在该方法调用的第9个参数传入 `true`，将 `relative` 设置为 `true`。这时子节点使用相对坐标系，以父节点左上角作为基点，x、y 取值范围都是 `[-1,1]`。如 C节点 相对 B节点定位。
+使用 `mxGraph.insertVertex` 会创建一个 relative 为 false 的节点。如果你要将一个节点添加到另一个节点中需要在该方法调用的第9个参数传入 `true`，将 `relative` 设置为 `true`。这时子节点使用相对坐标系，以父节点左上角作为基点，x、y 取值范围都是 `[-1,1]`。如 C节点 相对 B节点定位。
 
-![6](https://gitee.com/yejinzhan/images/raw/master/20200530152709.png)
+![](https://gitee.com/yejinzhan/images/raw/master/20200530152709.png)
 
 - **`relative` 为 `true` 的边，`x、y` 用于定位 label**
 
-	使用 `mxGraph.insertEdge` 会创建一条 relative 为 true 的边。x、y 用于定位线条上的 label，x 取值范围是 `[-1,1]`，`-1 为起点，0 为中点，1 为终点`。y 表示 label 在边的正交线上移到的距离。第三个例子能帮忙大家理解这种情况。
-  ![7](https://gitee.com/yejinzhan/images/raw/master/20200530152733.jpeg)
+使用 `mxGraph.insertEdge` 会创建一条 relative 为 true 的边。x、y 用于定位线条上的 label，x 取值范围是 `[-1,1]`，`-1 为起点，0 为中点，1 为终点`。y 表示 label 在边的正交线上移到的距离。第三个例子能帮忙大家理解这种情况。
+![](https://gitee.com/yejinzhan/images/raw/master/20200530152733.jpeg)
 	
-	```js
-	const e1 = graph.insertEdge(parent, null, '30%', v1, v2);
-	e1.geometry.x = 1;
-	e1.geometry.y = 100;
-	```
+```js
+const e1 = graph.insertEdge(parent, null, '30%', v1, v2);
+e1.geometry.x = 1;
+e1.geometry.y = 100;
+```
 
 ### 设置样式
-![8](https://gitee.com/yejinzhan/images/raw/master/20200530152743.png)
+![](https://gitee.com/yejinzhan/images/raw/master/20200530152743.png)
 
 由 03.stylesheet.html https://github.com/jinzhanye/mxgraph-demos/blob/master/src/03.stylesheet.html 这个例子我们得知 mxGraph 提供两种设置样式的方式。
 
@@ -212,9 +214,9 @@ mxGraph 所有样式在这里 https://jgraph.github.io/mxgraph/docs/js-api/files
 
 比如现在我想将边的样式设置成：折线、虚线、绿色、拐弯为圆角、粗3pt。在 Style 面板手动修改样式后，再点击 `Edit Style` 就可以看到对应的样式代码。
 
-![9](https://gitee.com/yejinzhan/images/raw/master/20200530152828.jpeg)
+![](https://gitee.com/yejinzhan/images/raw/master/20200530152828.jpeg)
 
-![10](https://gitee.com/yejinzhan/images/raw/master/20200530152757.jpeg)
+![](https://gitee.com/yejinzhan/images/raw/master/20200530152757.jpeg)
 
 为了方便观察我手动格式化了样式，注意最后一行以 `entry` 或 `exit` 开头的样式代表的是边出口/入口的靶点坐标，下一小节会进行讲解。
 
@@ -224,25 +226,25 @@ mxGraph 所有样式在这里 https://jgraph.github.io/mxgraph/docs/js-api/files
 
 将鼠标悬浮中 A 节点中心，待节点高亮时连接到 B 节点的一个靶点上
 
-![11](https://gitee.com/yejinzhan/images/raw/master/20200530152901.jpeg)
+![](https://gitee.com/yejinzhan/images/raw/master/20200530152901.jpeg)
 
-![12](https://gitee.com/yejinzhan/images/raw/master/20200530152907.jpeg)
+![](https://gitee.com/yejinzhan/images/raw/master/20200530152907.jpeg)
 
 然后将 A 节点拖拽到 B 节点右边
 
-![13](https://gitee.com/yejinzhan/images/raw/master/20200530152918.jpeg)
+![](https://gitee.com/yejinzhan/images/raw/master/20200530152918.jpeg)
 
 可以看到如果从图形中心拖出线条，这时边的出口值 `exit` 为空，只有入口值 `entry`。如果拖动节点 mxGraph 会智能地调整线条出口方向。如节点 A 的连接靶点原来是在右边，节点拖动到节点 B 右边后靶点也跟着发生了变化，跑到了左边，而节点 B 的连接靶点一直没变。
 
 这次将鼠标悬浮到 A 节点的一个靶点，待靶点高亮时连接到 B 节点的一个靶点上
 
-![14](https://gitee.com/yejinzhan/images/raw/master/20200530152929.jpeg)
+![](https://gitee.com/yejinzhan/images/raw/master/20200530152929.jpeg)
 
-![15](https://gitee.com/yejinzhan/images/raw/master/20200530152943.jpeg)
+![](https://gitee.com/yejinzhan/images/raw/master/20200530152943.jpeg)
 
 然后将 A 节点拖拽到 B 节点右边
 
-![16](https://gitee.com/yejinzhan/images/raw/master/20200530153000.jpeg)
+![](https://gitee.com/yejinzhan/images/raw/master/20200530153000.jpeg)
 
 可以看到这次所有值都有了，连接后拖动节点 A，连接靶点的位置也固定不变，mxGraph 不像第一个例子一样调整连接靶点位置。之所以产生这样的差异是因为第一个例子的边是从节点中心拖出的，并没有出口靶点的信息，而第二个例子则是明确地从一个靶点中拖出一条边。
 
@@ -314,3 +316,9 @@ selectCellForEvent https://jgraph.github.io/mxgraph/docs/js-api/files/view/mxGra
 - mxGraph User Manual – JavaScript Client https://jgraph.github.io/mxgraph/docs/manual.html
 - mxGraph API Specification https://jgraph.github.io/mxgraph/docs/js-api/files/index-txt.html
 - mxGraph Javascript Examples https://jgraph.github.io/mxgraph/javascript/index.html
+
+<section class="custom-bottom">
+  欢迎关注 Luobo FE，更多精彩内容持续出炉🔥
+</section>
+
+![](/images/common/qrcode.jpg)
