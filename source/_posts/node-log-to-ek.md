@@ -179,11 +179,11 @@ $ curl http://localhost:7115
 ![](/images/node-log-to-ek/img5.png)
 
 ## 封装更好用的 SDK
-上文简单封装的 SDK 是不足以应对实际生产环境的，结合实际业务遇到的问题，我们封装了内部使用的日志上报 SDK，欢迎 Start & Fork。
+上文简单封装的 SDK 是不足以应对实际生产环境的，结合实际业务遇到的问题，我们封装了日志上报 [SDK](https://github.com/jinzhanye/koa-and-express-es-logger)，欢迎 Start & Fork。
 
-- @za-node/express-logger：Express 日志上报 SDK。
-- @za-node/koa-logger：Koa 日志上报 SDK。
-- @za-node/egg-framework：基本 Egg 封装的简单上层框架，主要集成日志上报功能。
+- @my-es-logger/express-logger：Express 日志上报 SDK。
+- @my-es-logger/koa-logger：Koa 日志上报 SDK。
+- @my-es-logger/egg-framework：基本 Egg 封装的简单上层框架，主要集成日志上报功能。
 
 主要解决了如下问题：
 
