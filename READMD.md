@@ -1,3 +1,9 @@
+## 初始化
+```shell
+npm i
+cp themes/even/_config.yml.yjz themes/even/_config.yml
+```
+
 ## 部署
 ```shell
 npm run release
