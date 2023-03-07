@@ -1,7 +1,7 @@
 ---
 title: 第一次录课感想
 date: 2023-03-07 18:18:12
-categories: 技术
+categories: 观点与感想
 ---
 
 最近做的新尝试，第一次录课，欢迎大家观看[《Vue3+Nest+GraphQL+Prisma 入门全栈开发图书管理系统》](https://www.bilibili.com/video/BV1K44y197Za/)。接下来分享一下录课感想。
