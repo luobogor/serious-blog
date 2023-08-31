@@ -1,5 +1,5 @@
 ---
-title: 第一次录课感想
+title: 视频教程《Vue3+Nest+GraphQL+Prisma 入门全栈开发图书管理系统》
 date: 2023-03-07 18:18:12
 categories: 观点与感想
 ---

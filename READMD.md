@@ -9,6 +9,7 @@ cp themes/even/_config.yml.yjz themes/even/_config.yml
 npm run release
 cd ./.deploy_git
 git remote add origin git@gitee.com:yejinzhan/yejinzhan.git
+git checkout master
 git push origin master --force
 ```
 
