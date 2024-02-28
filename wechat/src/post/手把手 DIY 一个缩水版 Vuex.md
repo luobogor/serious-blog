@@ -12,7 +12,7 @@
 为什么当 state 对象发生变化时视图会被更新？原因是 store 内部创建了一个 Vue 对象对 state 进行监听(见源码 `resetStoreVM` 方法)。而且上面也提到，使用 Vuex 后，所有组件的 `$store` 都引用的都是同一个 store。当使用了 state 的视图渲染时就会触发 state 的 getter 收集渲染 Watcher 依赖。当 state 变化时，触发相应属性的 setter，渲染 Watcher 更新视图。
 
 ## 参考
-- Demo 仓库 https://github.com/jinzhanye/diy-vuex
+- Demo 仓库 https://github.com/luobogor/diy-vuex
 
 <section class="custom-bottom">
   欢迎关注 Luobo FE，更多精彩内容持续出炉🔥

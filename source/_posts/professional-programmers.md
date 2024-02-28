@@ -3,7 +3,7 @@ title: 专业人士---读《程序员的职业素养》有感
 date: 2020-06-26 19:34:00
 categories: 观点与感想
 ---
-![](https://gitee.com/yejinzhan/images/raw/master/20200822230947.png)
+![](https://gitee.com/luobogor/images/raw/master/20200822230947.png)
 
 [《程序员的职业素养》](https://book.douban.com/subject/11614538/)一书是作者多年编程生涯的心得体会，说「不」、说「是」这两章尤其触动我。
 

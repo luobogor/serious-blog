@@ -4,7 +4,7 @@ date: 2019-03-02 15:31:28
 categories: 技术
 ---
 
-![Cover](https://gitee.com/yejinzhan/images/raw/master/20200530155854.jpeg)
+![Cover](https://gitee.com/luobogor/images/raw/master/20200530155854.jpeg)
 
 随着公司项目越做越复杂，因前期团队对 Vue 使用经验不足，导致留下比较多坑。再这样下去项目会变成越来越难以维护，于是我对主管说：“主管，我想重构”，便有了这次的重构经历。经过对项目分析，主要存在以下问题：
 

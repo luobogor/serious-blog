@@ -4,7 +4,7 @@ date: 2020-10-25 22:30:00
 categories: 观点与感想
 ---
 
-![](https://gitee.com/yejinzhan/images/raw/master/20201031145938.jpeg)
+![](https://gitee.com/luobogor/images/raw/master/20201031145938.jpeg)
 
 这周推荐一本书 - [《金字塔原理》](https://book.douban.com/subject/4882120)，讲的是如何用「结构化」的方式去思考、表达，对于日常工作很有帮助。
 

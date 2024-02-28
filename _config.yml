@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Jz de boke
+title: luobogooooo
 subtitle: 分享一些技术心得和生活感悟，留下一些印记
 description: 分享一些技术心得和生活感悟，留下一些印记
 keywords: 开发、技术、前端、生活感悟、思考
-author: yejinzhan
+author: luobogor
 language: zh-cn
 timezone: ''
 
@@ -100,10 +100,10 @@ theme: even
 
 deploy:
   type: git
-  repo: git@github.com:jinzhanye/jinzhanye.git
+  repo: git@github.com:luobogor/luobogor.git
   branch: master
 
 #deploy:
 #  type: git
-#  repo: git@gitee.com:yejinzhan/yejinzhan.git
+#  repo: git@gitee.com:luobogor/luobogor.git
 #  branch: master

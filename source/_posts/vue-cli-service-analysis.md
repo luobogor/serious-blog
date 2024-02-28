@@ -6,7 +6,7 @@ categories: 技术
 
 ![img.png](/images/vue-cli-service-analysis/img.png)
 
-继上文 [Vue CLI Generator 源码浅析](https://yejinzhan.gitee.io/2022/03/30/vue-cli-generator-analysis/)，本文结合 [cli-plugin-typescript](https://github.com/vuejs/vue-cli/tree/v4.5.15/packages/%40vue/cli-plugin-typescript) 讲述执行 `npm run serve` ，Vue CLI Service （版本为 [4.5.15](https://github.com/vuejs/vue-cli/tree/v4.5.15)）内部是如何进行 Webpack 配置。
+继上文 [Vue CLI Generator 源码浅析](https://luobogor.gitee.io/2022/03/30/vue-cli-generator-analysis/)，本文结合 [cli-plugin-typescript](https://github.com/vuejs/vue-cli/tree/v4.5.15/packages/%40vue/cli-plugin-typescript) 讲述执行 `npm run serve` ，Vue CLI Service （版本为 [4.5.15](https://github.com/vuejs/vue-cli/tree/v4.5.15)）内部是如何进行 Webpack 配置。
 
 ## 加载插件
 从 `/packages/@vue/cli-service/package.json` 的 `bin` 字段开始我们顺藤摸瓜找到 Service 这个核心类。

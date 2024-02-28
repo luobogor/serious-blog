@@ -1,13 +1,13 @@
-![](https://gitee.com/yejinzhan/images/raw/master/20200530155744.png)
+![](https://gitee.com/luobogor/images/raw/master/20200530155744.png)
 
-目前公司团队小程序框架使用的是 Tina.js，这篇文章将讲解这个框架的源码。阅读文章时可以对照着这个小工程 https://github.com/jinzhanye/my-tina/tree/master/test/sayhi/libraries 阅读源码，这个小工程主要是对 tina 加了更多的注释及示例。
+目前公司团队小程序框架使用的是 Tina.js，这篇文章将讲解这个框架的源码。阅读文章时可以对照着这个小工程 https://github.com/luobogor/my-tina/tree/master/test/sayhi/libraries 阅读源码，这个小工程主要是对 tina 加了更多的注释及示例。
 
 ## Tina.js 是什么
 
 Tina.js 是一款轻巧的渐进式微信小程序框架，不仅能充分利用原生小程序的能力，还易于调试。
 这个框架主要是对 Component、Page 两个全局方法进行了封装，本文主要介绍 Tina.js 1.0.0 的 `Paeg.define` 内部做了些什么。`Component.define` 与 `Paeg.define`相似，理解 `Paeg.define` 之后自然也就理解 `Component.define`。为什么是讲解 1.0.0 ？因为第一个版本的代码相对于最新版本主干内容更更清晰更容易上手。
 
-![](https://gitee.com/yejinzhan/images/raw/master/20200530175804.png)
+![](https://gitee.com/luobogor/images/raw/master/20200530175804.png)
 
 ## 概览
 
@@ -236,7 +236,7 @@ export function methods(object) {
 答案就在 `wxOptionsGenerator.methods`。上面说过在 `onLoad` 的时候会绑定 `__tina_instance__` 到 wx-Page，同时 wx-Page 与 tina-Page 的属性都是一模一样的，所以调用会被转发到 tina 对应的方法。这就相当于 tina 在 wx 之上做了一个抽象层。所有的被动调用都会被 tina 处理。而且因为上下文是 `__tina_instance__` 的缘故，
 所有主动调用都先经过 tina 再到 wx。结合下面两个小节会有更好的理解。
 
-![调用拦截](https://gitee.com/yejinzhan/images/raw/master/20200530175702.png)
+![调用拦截](https://gitee.com/luobogor/images/raw/master/20200530175702.png)
 
 ## 追加生命周期勾子
 上面创建 `wxPageOptions` 时有这么一句 `wxOptionsGenerator.lifecycles` 代码，这是 tina 用于在 `onLoad` 之前加多一个 `beforeLoad` 生命周期勾子，这个功能是怎么做的呢，我们来看看源码
@@ -291,7 +291,7 @@ prependHooks.addHooks.handler -> wx-Page.onLoad，关联 wx-Page、tinaPage -> �
 如下图所示
 
 
-![启动流程](https://gitee.com/yejinzhan/images/raw/master/20200530175707.png)
+![启动流程](https://gitee.com/luobogor/images/raw/master/20200530175707.png)
 
 ## compute 实现原理
 因为运行时的上下文都被 tina 改为 tina-Page，所以开发者调用的 `this.setData`， 实际上的 tina-Page 的 `setData` 方法，又因为 tina-Page 继承自 Basic，也就调用 Basic 的 setData 方法。下面看看 `setData` 的源码

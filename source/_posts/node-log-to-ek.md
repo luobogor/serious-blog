@@ -32,8 +32,8 @@ $ brew install elastic/tap/elasticsearch-full
 ```shell
 $ curl http://localhost:9200
 {
-  "name" : "jinzhanyedeMacBook-Pro.local",
-  "cluster_name" : "elasticsearch_jinzhanye",
+  "name" : "luobogordeMacBook-Pro.local",
+  "cluster_name" : "elasticsearch_luobogor",
   "cluster_uuid" : "U4ob5U_CQXifCe_FgI183A",
   "version" : {
     "number" : "7.17.4",
@@ -179,7 +179,7 @@ $ curl http://localhost:7115
 ![](/images/node-log-to-ek/img5.png)
 
 ## 封装更好用的 SDK
-上文简单封装的 SDK 是不足以应对实际生产环境的，结合实际业务遇到的问题，我们封装了日志上报 [SDK](https://github.com/jinzhanye/koa-and-express-es-logger)，欢迎 Start & Fork。
+上文简单封装的 SDK 是不足以应对实际生产环境的，结合实际业务遇到的问题，我们封装了日志上报 [SDK](https://github.com/luobogor/koa-and-express-es-logger)，欢迎 Start & Fork。
 
 - @my-es-logger/express-logger：Express 日志上报 SDK。
 - @my-es-logger/koa-logger：Koa 日志上报 SDK。

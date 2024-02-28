@@ -11,7 +11,7 @@ categories: 技术
 1. 通过 `$store.commit` 改变 `$store.state`
 2. 实现 strict model
 
-[源码](https://github.com/jinzhanye/diy-vuex)约70行左右比较好理解，下面讲解一下两个比较重要的点。
+[源码](https://github.com/luobogor/diy-vuex)约70行左右比较好理解，下面讲解一下两个比较重要的点。
 
 ## install
 `Vue.use(Vuex)`实际上调用的是 Vuex 的 `install` 方法，该方法在每个组件的 `beforeCreate` 钩子中为当前组件注入 `$store`，使所有组件的 `$store` 属性都指向同一个对象，也就是创建 Vue 实例时传入的 `store` 对象。

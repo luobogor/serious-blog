@@ -3,7 +3,7 @@ title: 如何卓有成效---《卓有成效的管理者》摘抄
 date: 2020-08-22 22:40:00
 categories: 观点与感想
 ---
-![](https://gitee.com/yejinzhan/images/raw/master/20200823131331.jpg)
+![](https://gitee.com/luobogor/images/raw/master/20200823131331.jpg)
 
 > 在一个现代的组织里，如果一位知识工作者能够凭借其职位和知识，对该组织负有贡献的责任，因而能实质地影响该组织的经营能力及达成的成果，那么他就是一位管理者。一位知识工作者是不是一位管理者，我们不能以他有没有下属而定。知识工作不能用数量来衡量，也不能用成本来衡量。衡量知识工作主要应看其结果，而不是看机构的规模有多大或管理工作的繁简。
 
@@ -17,13 +17,13 @@ categories: 观点与感想
 - 必须善于做有效的决策。
 
 ## 时间管理
-![](https://gitee.com/yejinzhan/images/raw/master/20200822174522.jpg)
+![](https://gitee.com/luobogor/images/raw/master/20200822174522.jpg)
 > 有效的管理者并不是一开始就着手工作，他们往往会从时间安排上着手。他们并不以计划为起点，认识清楚自己的时间用在什么地方才是起点。
 
 ### 记录时间
 管理时间的第一步是记录时间，然后分析时间去除不必要的活动。对于记录时间，我自己会使用 [GTD](https://zh.wikipedia.org/zh-hans/%E5%B0%BD%E7%AE%A1%E5%8E%BB%E5%81%9A) 工具 [Google Calendar](https://calendar.google.com/) 安排日程，用时间追踪工具 [Toggl](https://toggl.com) 记录时间。Toggl 强大的地方在于用图形直观地反映时间的使用情况，而且还是免费的！使用 Google Calendar 配合 [Toggl Button](https://chrome.google.com/webstore/detail/toggl-button-productivity/oejgccbfbmkkpaidnkphaiaecficdnfn?utm_source=chrome-ntp-icon)  插件可更加方便快捷地使用 Toggl。以下是个人这周的时间使用状况，可以感受下，非常直观。
 
-![](https://gitee.com/yejinzhan/images/raw/master/20200822174837.png)
+![](https://gitee.com/luobogor/images/raw/master/20200822174837.png)
 
 ### 诊断个人时间
 即消除个人非生产性的和浪费时间的活动的处理。将非生产性的和浪费时间的活动找出来，尽可能将这类活动从时间表上排除出去。要做到这一步，可以试问自己以下几个问题：
@@ -44,7 +44,7 @@ categories: 观点与感想
 时间管理的最后一步是将自行支配的零碎时间集中起来，用在确有贡献的大事上。
 
 ## 重视贡献
-![](https://gitee.com/yejinzhan/images/raw/master/20200822175354.png)
+![](https://gitee.com/luobogor/images/raw/master/20200822175354.png)
 
 > 有效的管理者一定注重贡献，并懂得将自己的工作与长远目标结合起来。他常自问：「对我服务的机构，在绩效和成果上，我能有什么贡献？」他强调的是责任。
 
@@ -86,7 +86,7 @@ categories: 观点与感想
 - 培养他人：重视贡献的管理者必然会同时启发他人，比如大胆指出他人工作中有可改进的点帮助他人进步。
 
 ## 如何发挥人的长处
-![](https://gitee.com/yejinzhan/images/raw/master/20200822183701.png)
+![](https://gitee.com/luobogor/images/raw/master/20200822183701.png)
 > 在一个组织中，有效性的每一面，都是「机会的开发，问题的消失」。尤其是对人，这一点更是特别重要。有效的管理者，把每一个人都视为可以开发的机会，包括他本人在内。他知道唯有长处才能产生成果，而抓住弱点则只能造成令人头痛的问题。纵然没有弱点，也不能产生什么成果。
 
 ### 用人所长
@@ -127,7 +127,7 @@ categories: 观点与感想
 > 如何用人之长，不仅有个态度问题，而且有一个敢不敢去实践的问题。用人之长，可以从实践中获得改进。我们只要注意认识我们的下属，观察我们的上司，多问「此人能做些什么」，而不必问「此人不能做些什么」，最后我们肯定能养成重视人之所长及善用人之所长的态度。久而久之，我们也能以同样的问题来问自己了。
 
 ## 要事优先
-![](https://gitee.com/yejinzhan/images/raw/master/20200822181046.png)
+![](https://gitee.com/luobogor/images/raw/master/20200822181046.png)
 > 卓有成效如果有什么秘诀的话，那就是善于集中精力。卓有成效的管理者总是把重要的事情放在前面先做（first things first），而且一次只做好一件事（do one thing at a time）。
 
 ### 摆脱昨天
@@ -145,4 +145,4 @@ categories: 观点与感想
 - 目标要高，要有新意，不能只求安全和容易。
 
 除了书上说的内容，在网上看到的这张关于事情优化级划分的图也拿出来分享一下。
-![](https://gitee.com/yejinzhan/images/raw/master/20200822173100.png)
+![](https://gitee.com/luobogor/images/raw/master/20200822173100.png)

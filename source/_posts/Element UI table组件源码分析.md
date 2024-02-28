@@ -4,7 +4,7 @@ date: 2018-07-25 08:55:12
 categories: 技术
 ---
 
-本文章从如下图所示的最基本的table入手，分析table组件源代码。本人已经对table组件原来的源码进行削减，源码点击[这里](https://github.com/jinzhanye/element-table-analysis)下载。本文只对重要的代码片段进行讲解，推荐下载代码把项目运行起来，跟着文章的思路阅读。
+本文章从如下图所示的最基本的table入手，分析table组件源代码。本人已经对table组件原来的源码进行削减，源码点击[这里](https://github.com/luobogor/element-table-analysis)下载。本文只对重要的代码片段进行讲解，推荐下载代码把项目运行起来，跟着文章的思路阅读。
 
 ![](https://ws3.sinaimg.cn/large/006tNc79gy1ftkowaly1ij30lt079aaq.jpg)
 

@@ -22,7 +22,7 @@ the set-cookies was blocked because it had the “Secure” attribute but was no
 简单翻译就是，cookie 被阻止，因为它具有 Secure 属性，但未通过安全连接接收。所以设置了这个属性后一定要在 https 下进行传输，否则会有问题。
 
 ### Cookie 覆盖失败问题
-![](https://gitee.com/yejinzhan/images/raw/master/20211024112609.png)
+![](https://gitee.com/luobogor/images/raw/master/20211024112609.png)
 
 如上图所示 http 响应中没有设置 `Secure` 属性，但浏览器设置 Cookie 还是失败了，这是为什么呢？Chrome 调试面板的响应会有这样的提示：
 
@@ -94,7 +94,7 @@ Chrome >= 80 + SameSite=Strict | ✖ |✖ | ✔
 Chrome >= 80 + SameSite=None（需求配合 Secure 使用，否则无效） | ✔ | ✔ | ✔
 
 ### 问题及解决方案
-![](https://gitee.com/yejinzhan/images/raw/master/20211024110658.png)
+![](https://gitee.com/luobogor/images/raw/master/20211024110658.png)
 
 问题：
 如上图，在管理后台通过 iframe 打开一个非同站的 H5，如果 H5 有响应 cookie，SameSite 默认值为 Lax，浏览器会拒收 Cookie。
@@ -175,7 +175,7 @@ module.exports = (backCookieNames) => {
 第二个 Cookie | Secure; SameSite=None（解决流行手机 SameSite 问题） | SameSite=None
 
 在有同名 Cookie 的情况下，如果第二个 Cookie 不可用，浏览器会继续检验第一个 Cookie 是否可用，最终效果如下：
-![最终效果，下发了两个同名 cookie](https://gitee.com/yejinzhan/images/raw/master/20211024111809.png)
+![最终效果，下发了两个同名 cookie](https://gitee.com/luobogor/images/raw/master/20211024111809.png)
 
 ## 参考
 - [Cookie 规范](https://tools.ietf.org/html/draft-ietf-httpbis-rfc6265bis-07)

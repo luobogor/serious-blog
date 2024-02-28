@@ -31,7 +31,7 @@ categories: 技术
 
 Egg 项目：
 
-https://gitee.com/yejinzhan/k8s-demo-backend
+https://gitee.com/luobogor/k8s-demo-backend
 
 ```dockerfile
 # 拉取 node 镜像
@@ -66,7 +66,7 @@ docker container run -p 7002:7001 k8s-demo-backend
 
 Vue 项目：
 
-https://gitee.com/yejinzhan/k8s-demo-frontend
+https://gitee.com/luobogor/k8s-demo-frontend
 
 与 Node 服务不一样，这个 Vue 项目打包出来的是静态页面，所以要启一个 nginx 服务来访问
 

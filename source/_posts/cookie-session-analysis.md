@@ -27,7 +27,7 @@ categories: 技术
 
 ## cookie-session 实现原理
 ### 整体流程
-开篇先整体讲下接收到请求和请求结束时发生了什么事情，有助于大家理解接下来要讲的代码细节。可以结合这个 [Demo](https://github.com/jinzhanye/cookie-session-demo) 一起理解本文。
+开篇先整体讲下接收到请求和请求结束时发生了什么事情，有助于大家理解接下来要讲的代码细节。可以结合这个 [Demo](https://github.com/luobogor/cookie-session-demo) 一起理解本文。
 
 cookie-session 底层是依赖 [cookies](https://github.com/pillarjs/cookies) 实现的，以下面的请求为例，请求进入服务时，cookie-session 调用 Cookie.get 从请求头中读取 Cookie（my-session），以及读取该 Cookie 的签名(my-session.sig)，并校验签名是否合法。如果是合法则将该 Cookie 字符串返回给 cookie-session，cookie-session 再将该串反序列化成一个 Session 对象。拿到 Session 对象后开发者可以对 Session 进行一些操作。
 

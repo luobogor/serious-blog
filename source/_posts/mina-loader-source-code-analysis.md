@@ -4,9 +4,9 @@ date: 2020-03-15 21:54:28
 categories: 技术
 ---
 
-![](https://gitee.com/yejinzhan/images/raw/master/20200530155628.jpeg)
+![](https://gitee.com/luobogor/images/raw/master/20200530155628.jpeg)
 
-团队最近需要对小程序进行工程化升级，在网上看了[《小程序工程化实践》](https://juejin.im/post/5d00aa5e5188255a57151c8a)一文收获满满，刚好文章中提到的 [mina-webpack](https://github.com/tinajs/mina-webpack) 也是我们团队正在使用的工具。mina-webpack 是 [tinaJS](https://tina.js.org/#/?id=main) 配套的工程化工具。（有关 tinaJS源码在我的另一篇[文章](https://yejinzhan.gitee.io/2020/03/08/tinaJs%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/)有讲述）`mina-webpack` 包括好几个包，其中 `mina-runtime-webpack-plugin`、`mina-entry-webpack-plugin`、`mina-loader` 最为重要。《小程序工程化实践》已经讲解了 `mina-runtime-webpack-plugin`、`mina-entry-webpack-plugin` 的原理，本文主要讲解 `mina-loader` 原理。可结合 [demo 项目](https://github.com/jinzhanye/mina-loader-demo)一起阅读。
+团队最近需要对小程序进行工程化升级，在网上看了[《小程序工程化实践》](https://juejin.im/post/5d00aa5e5188255a57151c8a)一文收获满满，刚好文章中提到的 [mina-webpack](https://github.com/tinajs/mina-webpack) 也是我们团队正在使用的工具。mina-webpack 是 [tinaJS](https://tina.js.org/#/?id=main) 配套的工程化工具。（有关 tinaJS源码在我的另一篇[文章](https://luobogor.gitee.io/2020/03/08/tinaJs%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/)有讲述）`mina-webpack` 包括好几个包，其中 `mina-runtime-webpack-plugin`、`mina-entry-webpack-plugin`、`mina-loader` 最为重要。《小程序工程化实践》已经讲解了 `mina-runtime-webpack-plugin`、`mina-entry-webpack-plugin` 的原理，本文主要讲解 `mina-loader` 原理。可结合 [demo 项目](https://github.com/luobogor/mina-loader-demo)一起阅读。
 
 ## webpack 信息分析
 mina-loader 的作用是将 `.mina` 文件分离成 `.json`、`.wxml`、`.js`、`wxss` 四种类型文件。
@@ -94,7 +94,7 @@ webpack loader 是从右到左对于上面信息来说也就是下到上执行�
 ## 源码分析
 `mina-loader `执行流程如下，跟上面说的流程差不多
 
-![流程](https://gitee.com/yejinzhan/images/raw/master/20200530175651.png)
+![流程](https://gitee.com/luobogor/images/raw/master/20200530175651.png)
 
 ```
 // process on 导出图片 parts 那部分有些问题，实际内容如下
@@ -148,7 +148,7 @@ module.exports = function () {
   const options = /*....*/
 
   // 获取剩余请求资源的路径，也就是 xx.mina 的路径
-  // 例如 /Users/jinzhanye/Desktop/dev/github/mini/mina-webpack/example/src/app.mina
+  // 例如 /Users/luobogor/Desktop/dev/github/mini/mina-webpack/example/src/app.mina
   const url = loaderUtils.getRemainingRequest(this)
 
   // 前置 !! 表示只执行行内 loader，其他 loader 都不执行

@@ -5,7 +5,7 @@ categories: 技术
 ---
 这周推荐一些资料帮忙大家理解 Cookie 的 SameSite 属性是什么，以及如何应对 Chrome 80 Cookie 默认策略的变化，资料按顺序阅读效果更佳。 
 
-![](https://gitee.com/yejinzhan/images/raw/master/20201122132900.jpg)
+![](https://gitee.com/luobogor/images/raw/master/20201122132900.jpg)
 
 [《SameSite Cookie Attribute Explained by Example (Strict, Lax, None & No SameSite)》](https://www.youtube.com/watch?v=aUF2QCEudPo)是一个 youtube 短视频，作者实操向我们演示了 SameSite 的三个属性分别有什么不同的效果，非常直观。
 
