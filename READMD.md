@@ -13,7 +13,7 @@ cp themes/even/_config.yml.yjz themes/even/_config.yml
 cd ./.deploy_git
 git remote add origin git@gitee.com:luobogor/luobogor.git
 git checkout master
-git push origin master --force`
+git push origin master --force
 ```
 
 二次部署
