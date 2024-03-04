@@ -66,6 +66,7 @@ async function main() {
      ${ urlStr.join('\n') }
    </urlset>`
 
+  // TODO 中文目录encode
   fs.writeFile(path.resolve(__dirname, './sitemap_a1.xml'), content, (err) => {
     if (err) {
       console.error('写入文件时发生错误:', err);
