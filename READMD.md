@@ -9,7 +9,7 @@ cp themes/even/_config.yml.yjz themes/even/_config.yml
 ## 部署
 初次部署
 ```shell
-`npm run release
+npm run release
 cd ./.deploy_git
 git remote add origin git@gitee.com:luobogor/luobogor.git
 git checkout master
