@@ -6,6 +6,13 @@
   </head>
 
   <body>
+    {%- if theme.google_analytics -%}
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ theme.google_analytics }}"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    {%- endif -%}
+
     {%- include '_partial/slideout.swig' -%}
     <div class="container" id="mobile-panel">
       <header id="header" class="header">

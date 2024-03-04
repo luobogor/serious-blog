@@ -94,7 +94,7 @@ baidu_analytics:
 baidu_verification:
 
 # Google Analytics
-google_analytics:
+google_analytics: GTM-W7T5FPKR
 # Google Verification
 google_verification:
 
