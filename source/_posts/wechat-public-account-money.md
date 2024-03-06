@@ -4,6 +4,8 @@ date: 2023-10-29 17:38:12
 categories: 观点与感想
 ---
 
+<img src="/images/wechat-public-account-money/cover.jpg" width = "500" alt="那年夏天，我独自骑个单车到野外" />
+
 ## 项目介绍
 
 5月的时候时间比较多，参加某社区公众号项目，12人左右小团队从0到1运营一个公众号，内容主要以副业为主。

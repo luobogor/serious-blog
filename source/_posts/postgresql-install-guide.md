@@ -4,6 +4,8 @@ date: 2024-02-17 18:18:12
 categories: 技术
 ---
 
+![开平市](/images/postgresql-install-guide/cover.jpg)
+
 最近因工作需要安装 PostgreSQL 15，安装环境 CentOS Stream 8，下面详细讲讲如何安装。 
 
 ## 安装 PostgreSQL

@@ -4,6 +4,8 @@ date: 2024-02-08 18:18:12
 categories: 技术
 ---
 
+<img src="/images/cloudfare-rule/cover.jpg" width = "500" alt="深圳雨林古树茶🍵" />
+
 最近使用 Cloudfare 做了一些安全配置，分享一下。
 
 WAF 添加跳过规则，设置某些合法爬虫可以访问。
