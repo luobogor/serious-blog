@@ -11,7 +11,6 @@ const dirs = [
   '2023',
   '2024',
   'about',
-  'categories',
 ].map((item) => {
   return path.resolve(__dirname, `../public/${ item }`)
 });
@@ -64,6 +63,18 @@ async function main() {
   const content = `<?xml version="1.0" encoding="UTF-8"?>
    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
      ${ urlStr.join('\n') }
+    <url>
+        <loc>https://luobogor.gitee.io/categories/index.html</loc>
+    </url>
+    <url>
+        <loc>https://luobogor.gitee.io/categories/%E5%BB%BA%E7%AB%99/index.html</loc>
+    </url>
+    <url>
+        <loc>https://luobogor.gitee.io/categories/%E6%8A%80%E6%9C%AF/index.html</loc>
+    </url>
+    <url>
+        <loc>https://luobogor.gitee.io/categories/%E8%A7%82%E7%82%B9%E4%B8%8E%E6%84%9F%E6%83%B3/index.html</loc>
+    </url>
    </urlset>`
 
   // TODO 中文目录encode

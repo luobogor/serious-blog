@@ -1,15 +1,15 @@
 ---
-title: 0 到 1 搭建 GPTs 导航站（一）——如何收录 GPTs
+title: 0 到 1 搭建 GPTs 导航站（一）：如何收录 GPTs
 date: 2024-03-06 20:54:28
 categories: 建站
 ---
 
 ## 前言
-三个月前我上线了一个 GPTs 导航站 —— [GPTs Happy](https://gptshappy.tools?utm_source=luobogor.gitee.io)，本系列文章主要总结过去三个多月自己做了什么，以及给大家介绍如何 0 到 1 建站。
+出海小白第一次做网站，三个月前我上线了一个 GPTs 导航站 —— [GPTs Happy](https://gptshappy.tools?utm_source=luobogor.gitee.io)，本系列文章主要总结过去三个多月自己做了什么，以及给大家介绍如何 0 到 1 建站。
 
 概括来说过去三个月主要做了如下事情：
 
-1. 收集了 37284 个 GPTs
+1. 学习爬虫，收集了 3w 个 GPTs
 2. 使用 cloudflare CDN 等方式提高网站访问速度
 3. 使用各种策略，优化SEO
 4. 接入 Google Search Console、GA4、Clarity Microsoft 等工具跟踪网站流量
@@ -42,4 +42,4 @@ categories: 建站
 
 ![google-result2.png](/images/build-gpts-website-01-gpts-scraping/img4.png)
 
-研究了一下谷歌搜索，如果自己写脚本请求翻页可以这样搞 `https://google.com/search?q=Query&num=10&start=0` 。但是会有两个问题，第一是速率太快会被会被弹人机验证，所以别请求太快。还有另一个，谷歌虽然告诉你它收录了 10 几万条数据，但实际上你可以浏览的也就只有前 10 几页，再往下滑你会发现到底了，滑不动了，用接口请求也会有同样的问题。至今这个问题还没有解决。
+研究了一下谷歌搜索，如果自己写脚本请求翻页可以这样搞 `https://google.com/search?q=Query&num=10&start=0` 。但是会有两个问题，第一是速率太快会被会被弹人机验证，所以别请求太快。另一个就是，谷歌虽然告诉你它收录了 49 万条数据，但实际上你可以浏览的也就只有前 10 几页，再往下滑你会发现到底了，滑不动了，用接口请求也会有同样的问题。至今这个问题还没有解决。
