@@ -1,6 +1,6 @@
 ---
-title: 0 到 1 搭建 GPTs 导航站（二）：Cloudflare CDN 性能优化
-date: 2024-03-08 20:54:28
+title: 0 到 1 搭建 GPTs 导航站（三）：SEO 优化
+date: 2024-03-08 14:54:28
 categories: 建站
 ---
 
@@ -9,6 +9,7 @@ categories: 建站
 0 到 1 搭建 GPTs 导航站系列：
 - [0 到 1 搭建 GPTs 导航站（一）：如何收录 GPTs](https://luobogor.gitee.io/2024/03/06/build-gpts-website-03-seo-optimization/)
 - [0 到 1 搭建 GPTs 导航站（二）：Cloudflare CDN 性能优化](https://luobogor.gitee.io/2024/03/07/build-gpts-website-02-cloudfare-cdn/)
+- [0 到 1 搭建 GPTs 导航站（三）：SEO 优化](https://luobogor.gitee.io/2024/03/08/build-gpts-website-03-seo-optimization/)
 
 文本介绍几个做 GPTs 导航站时实践过的 SEO 优化技巧：
 1. 提交 sitemap 文件

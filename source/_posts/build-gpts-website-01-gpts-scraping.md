@@ -9,6 +9,7 @@ categories: 建站
 0 到 1 搭建 GPTs 导航站系列：
 - [0 到 1 搭建 GPTs 导航站（一）：如何收录 GPTs](https://luobogor.gitee.io/2024/03/06/build-gpts-website-01-gpts-scraping/)
 - [0 到 1 搭建 GPTs 导航站（二）：Cloudflare CDN 性能优化](https://luobogor.gitee.io/2024/03/07/build-gpts-website-02-cloudfare-cdn/)
+- [0 到 1 搭建 GPTs 导航站（三）：SEO 优化](https://luobogor.gitee.io/2024/03/08/build-gpts-website-03-seo-optimization/)
 
 ## 前言
 出海小白第一次做网站，三个月前我上线了一个 GPTs 导航站 —— [GPTs Happy](https://gptshappy.tools?utm_source=luobogor.gitee.io)，本系列文章主要总结过去三个多月自己做了什么，以及给大家介绍如何 0 到 1 建站。
