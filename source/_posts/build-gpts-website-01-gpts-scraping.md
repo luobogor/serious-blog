@@ -49,4 +49,10 @@ categories: 建站
 
 ![google-result2.png](/images/build-gpts-website-01-gpts-scraping/img4.png)
 
-研究了一下谷歌搜索，如果自己写脚本请求翻页可以这样搞 `https://google.com/search?q=Query&num=10&start=0` 。但是会有两个问题，第一是速率太快会被会被弹人机验证，所以别请求太快。另一个就是，谷歌虽然告诉你它收录了 49 万条数据，但实际上你可以浏览的也就只有前 10 几页，再往下滑你会发现到底了，滑不动了，用接口请求也会有同样的问题。至今这个问题还没有解决。
+研究了一下谷歌搜索，如果自己写脚本请求翻页可以这样搞 `https://google.com/search?q=Query&num=10&start=0` 。但是会有两个问题，第一是速率太快会被会被弹人机验证，所以别请求太快。另一个就是，谷歌虽然告诉你它收录了 49 万条数据，但实际上你可以浏览的也就只有前 10 几页，再往下滑你会发现到底了，滑不动了，用接口请求也会有同样的问题。
+
+在搜索 API 加上时间参数，限制搜索时间就可以解决这个问题。完整 API 参数如下：
+
+```
+https://google.com/search?q=Query&num=10&start=0&tbs=encodeURIComponent(cdr:1,cd_min:1/1/2024,cd_max:1/2/2024)
+```
