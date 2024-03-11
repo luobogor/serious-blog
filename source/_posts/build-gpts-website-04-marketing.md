@@ -33,6 +33,9 @@ GA4 与 Clarity 各有各的优点，而且两个都是免费的，都接入就�
 
 ![img_3.png](/images/build-gpts-website-04-marketing/img_3.png)
 
+### AI 导航站
+网上搜一下会发现非常多 AI 导航站，可以在上网提交一波自己的网站。
+
 ### Github
 Github 主要利用开源的方式引流，把自己写的两个爬虫脚本开源出来：
 
