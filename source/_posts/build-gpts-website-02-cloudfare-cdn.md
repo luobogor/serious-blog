@@ -10,6 +10,7 @@ categories: 建站
 - [0 到 1 搭建 GPTs 导航站（一）：如何收录 GPTs](https://luobogor.gitee.io/2024/03/06/build-gpts-website-01-gpts-scraping/)
 - [0 到 1 搭建 GPTs 导航站（二）：Cloudflare CDN 性能优化](https://luobogor.gitee.io/2024/03/07/build-gpts-website-02-cloudfare-cdn/)
 - [0 到 1 搭建 GPTs 导航站（三）：SEO 优化](https://luobogor.gitee.io/2024/03/08/build-gpts-website-03-seo-optimization/)
+- [0 到 1 搭建 GPTs 导航站（四）：网站推广](https://luobogor.gitee.io/2024/03/11/build-gpts-website-04-marketing/)
 
 今天给大家介绍如何让自己的 GPTs 导航站接入 Cloudflare CDN，让网站秒开，提升用户体验。
 
