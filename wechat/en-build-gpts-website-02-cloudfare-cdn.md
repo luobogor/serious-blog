@@ -1,5 +1,5 @@
 ---
-title: Building GPTs Directory Website from 0 to 1 (Part 1): Cloudflare CDN Performance Optimization
+title: Building GPTs Directory Website from 0 to 1 (Part 2): Cloudflare CDN Performance Optimization
 date: 2024-03-07 20:54:28
 categories: Website Building
 ---

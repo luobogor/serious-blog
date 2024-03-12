@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
+        <loc>https://luobogor.gitee.io/</loc>
+    </url>
+    <url>
         <loc>https://luobogor.gitee.io/2018/01/26/zepto-focus-blur-event-delegation/index.html</loc>
     </url>
     <url>
@@ -70,7 +73,7 @@
         <loc>https://luobogor.gitee.io/2023/03/07/vue3-and-nest-fullstack-tutorial/index.html</loc>
     </url>
     <url>
-        <loc>https://luobogor.gitee.io/2023/10/29/wechat-</loc>
+        <loc>https://luobogor.gitee.io/2023/10/29/wechat-public-account-money/index.html</loc>
     </url>
     <url>
         <loc>https://luobogor.gitee.io/2024/02/08/cloudfare-rule/index.html</loc>
