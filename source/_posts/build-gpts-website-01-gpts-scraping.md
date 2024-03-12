@@ -15,6 +15,8 @@ categories: 建站
 ## 前言
 出海小白第一次做网站，三个月前我上线了一个 GPTs 导航站 —— [GPTs Happy](https://gptshappy.tools?utm_source=luobogor.gitee.io)，本系列文章主要总结过去三个多月自己做了什么，以及给大家介绍如何 0 到 1 建站。
 
+![gptshappy](/images/build-gpts-website-01-gpts-scraping/img5.png)
+
 概括来说过去三个月主要做了如下事情：
 
 1. 学习爬虫，收集了 3w 个 GPTs
