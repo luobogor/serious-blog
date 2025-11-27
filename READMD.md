@@ -4,6 +4,7 @@
 nvm use 14
 npm i
 cp themes/even/_config.yml.yjz themes/even/_config.yml
+npm run dev
 ```
 
 ## 部署
