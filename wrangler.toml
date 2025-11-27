@@ -1,0 +1,6 @@
+name = "serious-blog"
+compatibility_date = "2025-11-27"
+
+# 配置静态资源目录
+[assets]
+directory = "./public"
