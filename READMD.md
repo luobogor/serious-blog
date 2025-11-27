@@ -1,7 +1,7 @@
 ## 初始化
 ```shell
-# 使用 node 14
-nvm use 14
+# 使用 node 22
+nvm use 22
 npm i
 cp themes/even/_config.yml.yjz themes/even/_config.yml
 npm run dev
