@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "build": "hexo g -w",
+    "build:prod": "hexo clean && hexo generate",
     "server": "hexo s",
     "clean": "hexo clean",
     "release": "hexo clean && hexo g && hexo d",
