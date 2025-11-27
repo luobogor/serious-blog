@@ -65,8 +65,7 @@ categories: 建站
 在日志中，我发现了大量 `429 Rate Limited` 错误：
 
 ```log
-2025-11-26T08:17:03Z ERR ... acme: error: 429 ... too many certificates (50) already issued for "traefik.me" ...
-domains=["minicanva-fe-xxxxxx.traefik.me"]
+2025-11-26T08:17:03Z ERR Unable to obtain ACME certificate for domains error="unable to generate a certificate for the domains [minicanva-fe-ydwzlc-e088fa-62-72-6-194.traefik.me]: acme: error: 429 :: POST :: https://acme-v02.api.letsencrypt.org/acme/new-order :: urn:ietf:params:acme:error:rateLimited :: too many certificates (50) already issued for "traefik.me" in the last 168h0m0s, retry after 2025-11-26 09:06:03 UTC: see https://letsencrypt.org/docs/rate-limits/#new-certificates-per-registered-domain" ACME CA=https://acme-v02.api.letsencrypt.org/directory acmeCA=https://acme-v02.api.letsencrypt.org/directory domains=["minicanva-fe-ydwzlc-e088fa-62-72-6-194.traefik.me"] providerName=letsencrypt.acme routerName=minicanva-fe-ydwzlc-router-websecure-9@file rule=Host(minicanva-fe-ydwzlc-e088fa-62-72-6-194.traefik.me)
 ```
 
 ### 根因分析
