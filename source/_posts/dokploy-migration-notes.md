@@ -44,7 +44,7 @@ categories: 建站
 
 ### 2. 最终方案：马来西亚 Hostering + Cloudflare
 经过对比，我决定放弃直连香港，改用 [**Hostering 的马来西亚节点 KMV2**](https://hostinger.com?REFERRALCODE=BAGJINZHALBE)。
-*   **优势**：价格极具竞争力（约 821元/2年），且地理位置在亚洲，物理距离适中。
+*   **优势**：黑五期间价格极具竞争力（约 821元/2年），且地理位置在亚洲，物理距离适中。
 *   **网络策略**：配合 Cloudflare CDN。虽然国内访问速度不如直连香港，但胜在**全天候稳定**。
 
 ---
