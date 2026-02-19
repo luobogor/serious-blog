@@ -52,5 +52,3 @@ npx wrangler pages deploy ./public
 ```
 
 **注意**: `wrangler.toml` 主要用于 Cloudflare Workers，Cloudflare Pages 的构建配置通常在 Dashboard 中设置。`wrangler.toml` 中的 `[assets]` 配置在 Pages 中不会生效，但保留也无妨。
-
-测试
