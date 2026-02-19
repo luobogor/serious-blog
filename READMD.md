@@ -47,7 +47,7 @@ directory = "./public"
 # 先构建
 npm run build:prod
 
-# 部署到 Cloudflare Pages
+# 部署到 Cloudflare Pages workers
 npx wrangler pages deploy ./public
 ```
 
