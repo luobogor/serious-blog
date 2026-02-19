@@ -1,5 +1,5 @@
 ---
-title: For Family，绝症老登的自我救赎
+title: For Family，绝命老登的自我救赎
 date: 2026-02-19 21:48:12
 categories: 观点与感想
 ---
